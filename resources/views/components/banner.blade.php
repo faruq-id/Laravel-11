@@ -2,13 +2,13 @@
     <div class="py-8 px-8 mx-auto max-w-screen-xl lg:py-16 grid lg:grid-cols-2 gap-8 lg:gap-16">
         <div class="flex flex-col justify-center">
             <h3 class="md:mb-14 font-medium text-red-700 md:text-2xl lg:text-2xl">Halo, Selamat Datang</h3>
-            <h1 class="mb-6 text-4xl font-extrabold tracking-normal md:leading-loose text-gray-900 md:text-4xl lg:text-5xl dark:text-white">
+            <h1 class="mb-6 text-4xl font-extrabold tracking-normal md:leading-loose text-gray-900 md:text-4xl lg:text-6xl dark:text-white">
                 Permudah Tata Kelola Perguruan Tinggi Anda 
             </h1>
-            <h3 class="mb-12 font-medium text-primary-600 md:text-3xl lg:text-3xl">
+            <h3 class="mb-12 font-medium tracking-normal text-primary-600 md:text-3xl lg:text-3xl">
                 Atasi beragam tantangan dalam satu solusi terpadu bersama SIAKAD Platform
             </h3>
-            <p class="mb-8 text-lg font-normal text-gray-500 lg:text-md dark:text-gray-400">
+            <p class="mb-8 text-md font-normal text-gray-500 lg:text-md dark:text-gray-400">
                 SIMAT menghadirkan berbagai solusi konkrit berbasiskan teknologi informasi  guna mengurai kesulitan manajemen kampus untuk kemajuan perguruan tinggi  di Indonesia
             </p>
             <div class="flex flex-col space-y-4 sm:flex-row sm:space-y-0">

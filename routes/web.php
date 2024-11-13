@@ -4,6 +4,7 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Arr;
+use App\Helpers\PageTitleHelper;
 use App\Http\Middleware\AdminAccess;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
@@ -34,27 +35,15 @@ Route::get('/posts', function () {
     // return view('posts', ['title' => 'Blog', 'posts' => $posts->get()]);
 
     //cara penambahan search yang lebih komplite
-    if(request('search') && request('category')) {
-        $category = Category::where('slug', request('category'))->first();
-        $titlesearch = $category ? 'Category: ' . $category->name . ' / Search : ' . request('search') : 'Category: Tidak Ditemukan';
-    } else if(request('category')) {
-        $category = Category::where('slug', request('category'))->first();
-        $titlesearch = $category ? count($category->posts) . ' Category: ' . $category->name : 'Category: Tidak Ditemukan';
-    } else if(request('search') && request('author')) {
-        $author = User::where('username', request('author'))->first();
-        $titlesearch = 'Post by: ' . $author->name . ' / Search : ' . request('search');
-    } else if(request('author')) {
-        $author = User::where('username', request('author'))->first();
-        $titlesearch = count($author->posts) . ' Post by: ' . $author->name;
-    } else if(request('search')) {
-        $titlesearch = 'Search results from: ' . request('search');
-    } else {
-        $titlesearch = 'Blogs';
-    }
-
     // $posts = Post::filter(request(['search', 'category', 'author']))->latest()->get(); //tampil semua data
-    $posts = Post::filter(request(['search', 'category', 'author']))->latest()->paginate(9)->withQueryString(); //tampil dengan pagination paginate(9)/ simplePaginate(9)
-    return view('posts', ['title' => $titlesearch, 'posts' => $posts]);
+    // $posts = Post::filter(request(['search', 'category', 'author']))->latest()->paginate(9)->withQueryString(); //tampil dengan pagination paginate(9)/ simplePaginate(9)
+    // return view('posts', ['title' => 'Blogs', 'posts' => $posts]);
+
+    $filters = request(['search', 'category', 'author']);
+    $posts = Post::filter($filters)->latest()->paginate(9)->withQueryString();
+    $title = PageTitleHelper::getPageTitle($filters); //menggunakan helpers PageTitleHelper
+
+    return view('posts', ['title' => $title, 'posts' => $posts]);
 });
 
 Route::get('/posts/{post:slug}', function(Post $post){
