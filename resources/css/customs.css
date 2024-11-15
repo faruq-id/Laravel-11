@@ -1,0 +1,8 @@
+#backToTopBtn {
+    transition: opacity 0.3s ease;
+}
+
+/* atribut x-cloak, yang memastikan elemen tersembunyi sampai Alpine.js */
+[x-cloak] {
+    display: none;
+}

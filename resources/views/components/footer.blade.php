@@ -1,4 +1,4 @@
-<footer class="bg-white antialiased dark:bg-gray-800">
+<footer class="bg-white antialiased dark:bg-gray-900">
     {{-- <div class="mx-auto max-w-screen-xl px-4 2xl:px-0"> --}}
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
       <div class="border-b border-gray-100 py-6 dark:border-gray-700 md:py-8 lg:py-16">
@@ -84,7 +84,7 @@
                   <a href="#" title="" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Affiliate Program</a>
                 </li>
                 <li>
-                  <a href="#" title="" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Collaboration Opportunities</a>
+                  <a href="#" title="" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Collab. Opportunities</a>
                 </li>
                 <li>
                   <a href="#" title="" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Sponsorship Requests</a>
@@ -156,7 +156,7 @@
             </div>
   
             <div>
-              <h6 class="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">Sell on Flowbite</h6>
+              <h6 class="mb-4 text-sm font-semibold uppercase text-gray-900 dark:text-white">Sell on Siakad</h6>
               <ul class="space-y-3">
                 <li>
                   <a href="#" title="" class="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Seller Registration</a>
@@ -200,7 +200,7 @@
   
           {{-- Footer Colom 4 --}}
           <div class="mt-6 w-full md:mt-8 lg:mt-0 lg:max-w-lg">
-            <div class="space-y-5 rounded-lg bg-gray-50 p-6 dark:bg-gray-700">
+            <div class="space-y-5 rounded-lg bg-gray-50 p-6 dark:bg-gray-800">
               <a href="/register" title="Register" class="text-base font-medium text-primary-700 underline hover:no-underline dark:text-primary-500"> Sign In or Create Account </a>
   
               <hr class="border-gray-200 dark:border-gray-600" />
@@ -209,10 +209,10 @@
                 <div class="items-end space-y-4 sm:flex sm:space-y-0">
                   <div class="relative mr-3 w-full sm:w-96 lg:w-full">
                     <label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-gray-300"> Get the latest deals and more. </label>
-                    <input class="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500 sm:w-96 lg:w-full" placeholder="Enter your email address" type="email" id="email" required="" />
+                    <input class="block w-full rounded-lg border border-gray-300 bg-white p-3 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 dark:border-gray-500 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-primary-500 dark:focus:ring-primary-500 sm:w-96 lg:w-full" placeholder="Enter your email address" type="email" id="email" required="" />
                   </div>
                   <div>
-                    <button type="submit" class="w-full cursor-pointer rounded-lg bg-primary-700 px-5 py-3 text-center text-sm font-medium text-white hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Subscribe</button>
+                    <button type="submit" class="w-full cursor-pointer rounded-lg bg-primary-700 px-5 py-3 text-center text-sm font-medium text-white hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-700 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Subscribe</button>
                   </div>
                 </div>
               </form>
@@ -220,10 +220,10 @@
               <hr class="border-gray-200 dark:border-gray-600" />
   
               <div>
-                <p class="mb-3 text-sm font-medium text-gray-900 dark:text-white">Trade on the go with <a href="#" title="" class="underline hover:no-underline">Flowbite App</a></p>
+                <p class="mb-3 text-sm font-medium text-gray-900 dark:text-white">Trade on the go with <a href="#" title="" class="underline hover:no-underline">Siakad App</a></p>
   
                 <div class="gap-4 space-y-4 sm:flex sm:space-y-0">
-                  <a href="#" class="inline-flex w-full items-center justify-center rounded-lg bg-gray-800 px-4 py-2.5 text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800 sm:w-auto">
+                  <a href="#" class="inline-flex w-full items-center justify-center rounded-lg bg-gray-800 px-4 py-2.5 text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-800 sm:w-auto">
                     <svg class="mr-3 h-7 w-7" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google-play" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                       <path fill="currentColor" d="M325.3 234.3L104.6 13l280.8 161.2-60.1 60.1zM47 0C34 6.8 25.3 19.2 25.3 35.3v441.3c0 16.1 8.7 28.5 21.7 35.3l256.6-256L47 0zm425.2 225.6l-58.9-34.1-65.7 64.5 65.7 64.5 60.1-34.1c18-14.3 18-46.5-1.2-60.8zM104.6 499l280.8-161.2-60.1-60.1L104.6 499z"></path>
                     </svg>
@@ -233,7 +233,7 @@
                     </div>
                   </a>
   
-                  <a href="#" class="inline-flex w-full items-center justify-center rounded-lg bg-gray-800 px-4 py-2.5 text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-600 dark:hover:bg-gray-500 dark:focus:ring-gray-800 sm:w-auto">
+                  <a href="#" class="inline-flex w-full items-center justify-center rounded-lg bg-gray-800 px-4 py-2.5 text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-800 sm:w-auto">
                     <svg class="mr-3 h-7 w-7" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="apple" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
                       <path
                         fill="currentColor"
@@ -294,6 +294,46 @@
                 </a>
               </div>
             </div>
+            
+
+            <div class="flex mt-4 p-4 bg-gray-50 rounded-lg items-center space-x-4 dark:bg-gray-800">
+              {{-- Icon Emoji --}}
+              <span class="text-3xl">😇</span>
+          
+              {{-- Rating and Description Wrapper --}}
+              <div>
+                  {{-- Rating and Stars --}}
+                  <div class="flex items-center space-x-1">
+                      <span class="text-2xl font-bold text-gray-900 dark:text-white">5.0</span>
+                      <div class="flex space-x-1 text-yellow-300">
+                          {{-- Stars --}}
+                          <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                              <path d="M10 15l-5.878 3.09 1.122-6.546L.487 6.854l6.564-.955L10 0l2.949 5.899 6.564.955-4.757 4.69 1.122 6.546z" />
+                          </svg>
+                          <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                              <path d="M10 15l-5.878 3.09 1.122-6.546L.487 6.854l6.564-.955L10 0l2.949 5.899 6.564.955-4.757 4.69 1.122 6.546z" />
+                          </svg>
+                          <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                              <path d="M10 15l-5.878 3.09 1.122-6.546L.487 6.854l6.564-.955L10 0l2.949 5.899 6.564.955-4.757 4.69 1.122 6.546z" />
+                          </svg>
+                          <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                              <path d="M10 15l-5.878 3.09 1.122-6.546L.487 6.854l6.564-.955L10 0l2.949 5.899 6.564.955-4.757 4.69 1.122 6.546z" />
+                          </svg>
+                          <svg class="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                              <path d="M10 15l-5.878 3.09 1.122-6.546L.487 6.854l6.564-.955L10 0l2.949 5.899 6.564.955-4.757 4.69 1.122 6.546z" />
+                          </svg>
+                      </div>
+                  </div>
+          
+                  {{-- Description --}}
+                  <div class="text-gray-800 text-xs mt-1 dark:text-gray-300">
+                      <p>Semua kampus pengguna puas</p>
+                      <p>dengan Platform SIAKAD</p>
+                  </div>
+              </div>
+          </div>
+          
+          
           </div>
         </div>
       </div>
@@ -302,18 +342,18 @@
       <div class="py-6 md:py-8">
         <div class="gap-4 space-y-5 xl:flex xl:items-center xl:justify-between xl:space-y-0">
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
-                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SIMAT</span>
+                <img src="img/logo.png" class="h-8" alt="Siakad Logo" />
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">SIAKAD</span>
             </a>
   
           <ul class="flex flex-wrap items-center gap-4 text-sm text-gray-900 dark:text-white xl:justify-center">
-            <li><a href="#" title="" class="font-medium hover:underline"> Flowbite Express </a></li>
+            <li><a href="#" title="" class="font-medium hover:underline"> Siakade Express </a></li>
             <li><a href="#" title="" class="font-medium hover:underline"> Legal Notice </a></li>
             <li><a href="#" title="" class="font-medium hover:underline"> Product Listing Policy </a></li>
             <li><a href="#" title="" class="font-medium hover:underline"> Terms of Use </a></li>
           </ul>
   
-          <p class="text-sm text-gray-500 dark:text-gray-400">© 2024 <a href="#" class="hover:underline">Flowbite</a>, Inc. All rights reserved.</p>
+          <p class="text-sm text-gray-500 dark:text-gray-400">© 2024 <a href="#" class="hover:underline">Faruq.ID</a>, Inc. All rights reserved.</p>
         </div>
       </div>
     </div>

@@ -2,9 +2,9 @@
     <x-slot:title>{{ $title }}</x-slot>
     {{-- <h3 class="text-xl">Halaman Login</h3> --}}
 
-    <section class="bg-gray-50 dark:bg-gray-900 rounded-md shadow-md">
+    <section class="bg-gray-50 h-screen dark:bg-gray-900 rounded-md shadow-md">
 
-        <div class="flex flex-col pt-10 items-center justify-center px-6 py-16 mx-auto {{--md:h-screen--}} lg:py-16">
+        <div class="flex flex-col pt-10 items-center justify-center px-4 py-16 mx-auto {{--md:h-screen--}} lg:py-16">
             {{-- <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
                 <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
                 Flowbite    
@@ -59,7 +59,7 @@
                             
                             @error('email')
                             <p id="email_error_help" class="mt-1 text-xs text-red-600 dark:text-red-400">
-                                <span class="font-medium">Oh, snapp!</span> {{ $message }}
+                                <span class="font-medium">Opss!, </span> {{ $message }}
                             </p>
                             @enderror
                         </div>
@@ -69,7 +69,7 @@
                             
                             @error('password')
                             <p id="password_error_help" class="mt-1 text-xs text-red-600 dark:text-red-400">
-                                <span class="font-medium">Oh, snapp!</span> {{ $message }}
+                                <span class="font-medium">Opss!, </span> {{ $message }}
                             </p>
                             @enderror
                         </div>
@@ -84,7 +84,7 @@
                             </div>
                             <a href="/forgot-password" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
                         </div>
-                        <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
+                        <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in to account</button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                             Don’t have an account yet? <a href="/register" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</a>
                         </p>

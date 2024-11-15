@@ -23,4 +23,6 @@
             </form>
         </div>
     </section>
+
+    <x-newsletter></x-newsletter> 
 </x-layout>

@@ -23,9 +23,9 @@ class AdminAccess
         }
 
         if (Auth::check()) {
-            return redirect('/dashboard')->with('error', 'Access denied! Admins only.');
+            return redirect('/dashboard')->with('error', 'Access denied! You do not have access to this page.');
         } else {
-            return redirect('/login')->with('error', 'Access denied! Admins only.');
+            return redirect('/login')->with('error', 'Access denied! You do not have access to this page.');
         }
     }
 }

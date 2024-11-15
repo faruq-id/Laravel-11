@@ -40,15 +40,19 @@ Route::get('/posts', function () {
     // return view('posts', ['title' => 'Blogs', 'posts' => $posts]);
 
     $filters = request(['search', 'category', 'author']);
-    $posts = Post::filter($filters)->latest()->paginate(9)->withQueryString();
+    $posts = Post::filter($filters)->latest()->paginate(12)->withQueryString();
     $title = PageTitleHelper::getPageTitle($filters); //menggunakan helpers PageTitleHelper
 
-    return view('posts', ['title' => $title, 'posts' => $posts]);
+    return view('posts', [
+        'title' => $title, 
+        'posts' => $posts]
+    );
 });
 
 Route::get('/posts/{post:slug}', function(Post $post){
     return view('post', [
-        'title' => 'Blog / ' . $post->title, 'post' => $post
+        'title' => $post->title, 
+        'post' => $post,
     ]);
 });
 
@@ -103,6 +107,12 @@ Route::post('/register', [RegisterController::class, 'store']);
 Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
+Route::get('/forgot-password', function () {
+    return view('login.forgot-password', ['title' => 'Forgot Password']);
+})->middleware('guest');
+Route::get('/reset-password', function () {
+    return view('login.reset-password', ['title' => 'Reset Password']);
+})->middleware('guest');
 
 Route::get('/dashboard', function () {
     return view('dashboard.index', ['title' => 'Dashboard']);

@@ -23,6 +23,7 @@ class RegisterController extends Controller
                 'username' => ['required', 'min:4', 'max:31', 'unique:users'],
                 'email' => ['required', 'email:dns', 'unique:users'],
                 'password' => ['required', 'min:6', 'max:255', 'confirmed'],
+                'password_confirmation' => ['required', 'min:6', 'max:255'],
                 'terms' => 'accepted' // Validasi checkbox terms harus dicentang
             ], [
                 'name.alpha_spaces' => 'The attribute field may only contain letters and spaces.', //'Nama hanya boleh berisi huruf dan spasi.',

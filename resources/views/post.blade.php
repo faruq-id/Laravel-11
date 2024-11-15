@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>
-        {{-- {{ $title }} --}}
+        {{ $title }}
 
         <nav class="flex py-4" aria-label="Breadcrumb">
             <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
@@ -33,11 +33,13 @@
   
     </x-slot>
 
-    <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-white dark:bg-gray-900 antialiased">
-        <div class="flex justify-between px-4 mx-auto max-w-screen-xl ">
+    <main class="mx-auto max-w-7xl pt-10 pb-16 px-4 lg:px-8 antialiased">
+        <div class="flex justify-between py-4 px-4 lg:py-16 rounded-md mx-auto max-w-screen-xl bg-white dark:bg-gray-900 relative">
+            <span class="absolute top-0 right-0 bg-orange-500 hover:bg-orange-600 text-white px-2 py-1 text-md rounded-bl-lg">
+                <a href="/posts" class="font-medium  text-white-500 hover:underline">&laquo; Back to posts</a>
+            </span>
             <article class="mx-auto w-full max-w-4xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert">
                 <header class="mb-4 lg:mb-6 not-format">
-                    <a href="/posts" class="font-medium  text-blue-500 hover:underline">&laquo; Back to posts</a>
                     <address class="flex items-center my-6 mb-6 not-italic">
                         <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
                             <img class="mr-4 w-16 h-16 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="{{ $post->author->name }}">
