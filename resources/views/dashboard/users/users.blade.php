@@ -225,6 +225,7 @@
                                                             data-username="{{ $user->username }}"
                                                             data-email="{{ $user->email }}"
                                                             data-phone="{{ $user->phone_number }}"
+                                                            data-is_admin="{{ $user->is_admin }}"
                                                             class="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                                                             <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                                 <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
@@ -414,13 +415,15 @@ document.addEventListener("DOMContentLoaded", function () {
             const username = button.getAttribute("data-username");
             const email = button.getAttribute("data-email");
             const phone = button.getAttribute("data-phone");
+            const is_admin = button.getAttribute("data-is_admin");
 
             // Isi data ke input form di modal
             modal.querySelector("#name").value = name;
             modal.querySelector("#username").value = username;
             modal.querySelector("#email").value = email;
             modal.querySelector("#phone").value = phone;
-
+            modal.querySelector("#is_admin").value = is_admin;
+                
             const updateUserUrl = "{{ route('admin.users.update', ':id') }}";
 
             // Set action URL form
