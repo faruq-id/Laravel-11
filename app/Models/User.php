@@ -75,6 +75,6 @@ class User extends Authenticatable
      */
     public function getProfilePictureAttribute(): string
     {
-        return $this->profile_picture && Storage::has($this->profile_picture) ? Storage::url($this->profile_picture) : Storage::url('/users/no-image.png');
+        return $this->attributes['profile_picture'] && Storage::has($this->attributes['profile_picture']) ? Storage::url($this->attributes['profile_picture']) : Storage::url('/users/no-image.png');
     }
 }
