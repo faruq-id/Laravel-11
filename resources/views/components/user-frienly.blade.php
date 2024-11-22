@@ -2,7 +2,7 @@
     <div class="container mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center">
         <!-- Image Section -->
         <div class="w-full lg:w-1/2 flex justify-center lg:justify-start">
-            <img src="https://via.placeholder.com/70x50" alt="Illustration" class="w-3/4 lg:w-full">
+            <img src="/img/smt-9.png" alt="{{ $appName }}" class="w-3/4 lg:w-full">
         </div>
         
         <!-- Content Section -->

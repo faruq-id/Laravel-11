@@ -1,6 +1,16 @@
 <x-layout>
-    <x-slot:title>{{ $title }}</x-slot>
-    {{-- <h3 class="text-xl">Halaman Contact</h3> --}}
+    <x-slot:title>{{ $title }}</x-slot:title>
+    <x-header>{{ $title }}</x-header>
+
+    {{-- <nav class="bg-white shadow-md p-4">
+        <ul class="flex space-x-4">
+            @foreach($nav as $item)
+                <li>
+                    <x-nav-link href="{{ $item['link'] }}" :active="$item['active']">{{ $item['name'] }}</x-nav-link>
+                </li>
+            @endforeach
+        </ul>
+    </nav> --}}
 
     <section class="bg-white dark:bg-gray-900">
         <div class="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">

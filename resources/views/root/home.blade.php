@@ -2,7 +2,7 @@
     <x-slot:title>{{ $title }}</x-slot>
 
 
-    <section class="pb-16 -mt-20 dark:bg-gray-900">
+    <section class="p-10 bg-gray-100 dark:bg-blue-600">
         <div class="container mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
             {{-- <h2 class="text-3xl font-bold text-gray-800 mb-2">Keunggulan Platform SIAKAD</h2>
             <p class="text-gray-600 mb-10">Berbagai keunggulan fitur yang akan dirasakan oleh perguruan tinggi ketika mengimplementasikan Platform SIAKAD</p>
@@ -42,10 +42,7 @@
     
 
     {{-- Produk --}}
-    <x-product></x-product>
-    
-    {{-- Keunggualan --}}
-    <x-keunggulan></x-keunggulan>
+    {{-- <x-product></x-product> --}}
 
     {{-- Test --}}
     <div class="py-16 bg-gray-50 dark:bg-gray-900">
@@ -100,7 +97,7 @@
                                 <img src="https://via.placeholder.com/300" alt="Image 2" class="rounded-lg shadow-lg">
                             </div> --}}
                             <div class="swiper-slide">
-                                <img src="https://via.placeholder.com/300" alt="Image 3" class="rounded-lg shadow-lg">
+                                <img src="/img/smt-7.png" alt="{{ $appName }}" class="rounded-lg shadow-lg">
                             </div>
                         </div>
                     </div>
@@ -142,6 +139,9 @@
             </div>
         </div>
     </div>
+    
+    {{-- Keunggualan --}}
+    <x-keunggulan></x-keunggulan>
     
     {{-- User frienly --}}
     <x-user-frienly></x-user-frienly>
@@ -201,8 +201,8 @@
                 <div class="w-3/9 lg:w-4/3 p-2">
                     <div class="relative mx-auto border-gray-800 dark:border-gray-800 bg-gray-800 border-[8px] rounded-t-xl h-[172px] max-w-[301px] md:h-[294px] md:max-w-[512px]">
                         <div class="rounded-lg overflow-hidden h-[156px] md:h-[278px] bg-white dark:bg-gray-800">
-                            <img src="https://flowbite.s3.amazonaws.com/docs/device-mockups/laptop-screen.png" class="dark:hidden h-[156px] md:h-[278px] w-full rounded-lg" alt="">
-                            <img src="https://flowbite.s3.amazonaws.com/docs/device-mockups/laptop-screen-dark.png" class="hidden dark:block h-[156px] md:h-[278px] w-full rounded-lg" alt="">
+                            <img src="/img/smt-6.png" class="dark:hidden h-[156px] md:h-[278px] w-full rounded-lg" alt="{{ $appName }}">
+                            <img src="/img/smt-5.png" class="hidden dark:block h-[156px] md:h-[278px] w-full rounded-lg" alt="{{ $appName }}">
                         </div>
                     </div>
                     <div class="relative mx-auto bg-gray-900 dark:bg-gray-700 rounded-b-xl rounded-t-sm h-[17px] max-w-[351px] md:h-[21px] md:max-w-[597px]">

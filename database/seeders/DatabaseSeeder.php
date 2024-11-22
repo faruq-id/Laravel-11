@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
 
         //cara 2 dalah dengan seeder model terpisah
         $this->call([CategorySeeder::class, UserSeeder::class]);
-        Post::factory(50)->recycle([
+        Post::factory(100)->recycle([
             
             Category::all(),
             User::all()

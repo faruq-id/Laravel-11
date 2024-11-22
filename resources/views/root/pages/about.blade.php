@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot>
-    {{-- <h3 class="text-xl">Halaman About</h3> --}}
+    <x-header>{{ $title }}</x-header>
 
     {{-- <!-- Header Section --> --}}
     <header class="bg-blue-600 text-white py-6 dark:bg-blue-800">

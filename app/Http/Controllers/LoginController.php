@@ -9,7 +9,7 @@ class LoginController extends Controller
 {
     public function login()
     {
-        return view('login.login', [
+        return view('auth.login', [
             'title' => 'Login'
         ]);
     }
@@ -24,6 +24,9 @@ class LoginController extends Controller
 
         if(Auth::attempt($validatedData)) {
             $request->session()->regenerate();
+
+            // Update last_login_at dengan waktu sekarang
+            Auth::user()->update(['last_login_at' => now()]);
 
             return redirect()->intended('/dashboard')->with('success', 'Selamat datang ' . Auth::user()->name);
         }

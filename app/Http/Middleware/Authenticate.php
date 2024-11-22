@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class Authenticate
 {
@@ -15,12 +16,23 @@ class Authenticate
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Periksa apakah pengguna sudah login
+        if (!Auth::check()) {
+            // Jika belum login, arahkan ke halaman login
+            return redirect($this->redirectTo($request));
+        }
+
+        // Jika sudah login, lanjutkan ke permintaan berikutnya
         return $next($request);
     }
 
-    protected function redirecTo($request) {
-        if(! $request->expectsJson()) {
-            return route('login');
+    /**
+     * Redirect pengguna yang belum login.
+     */
+    protected function redirectTo($request)
+    {
+        if (!$request->expectsJson()) {
+            return route('auth.login');
         }
     }
 }

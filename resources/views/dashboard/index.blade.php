@@ -1,10 +1,11 @@
 <x-dashboard-layout>
     <x-slot:title>{{ $title }}</x-slot>
 
-
-    <h1 class="text-xl bg-white p-4 font-semibold shadow text-gray-900 dark:bg-gray-800 sm:p-6 xl:p-4 dark:text-white sm:text-2xl">Dashboard</h1>
+    <h1 class="text-xl bg-white p-4 font-semibold shadow text-gray-900 dark:bg-gray-800 sm:p-6 xl:p-4 dark:text-white sm:text-2xl">
+        {{ $title }}
+    </h1>
     
-    <x-dashboard-err></x-dashboard-err>
+    <div class="px-4"><x-dashboard-err></x-dashboard-err></div>
 
     <div class="px-4 pt-6">
         <div class="rounded-lg bg-white p-4 shadow dark:bg-gray-800 sm:p-6 xl:p-8">

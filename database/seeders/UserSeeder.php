@@ -18,12 +18,25 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Miftahul Faruq, S.Kom',
             'username' => 'faroeq.id',
+            'phone_number' => '081999835837',
             'email' => 'faruq@uim.ac.id',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
+            'is_admin' => 1,
             'remember_token' => Str::random(10)
         ]);
 
-        User::factory(3)->create();
+        User::create([
+            'name' => 'Deny Silvia',
+            'username' => 'dany.silvia',
+            'phone_number' => '085954090462',
+            'email' => 'denyfaruq@gmail.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('aaaaaa'),
+            'is_admin' => 1,
+            'remember_token' => Str::random(10)
+        ]);
+
+        User::factory(11)->create();
     }
 }

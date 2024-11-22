@@ -20,7 +20,7 @@
                      </div>
                   </div>
                   <button class="text-white font-medium rounded-lg text-base px-5 py-3 w-full sm:w-auto text-center mb-6 bg-blue-700 lg:mb-0" type="submit"><span class="flex justify-center items-center">Send code</span></button>
-                  <div class="flex items-start text-sm font-medium text-gray-500 dark:text-gray-400"><a class="ml-auto text-blue-700 dark:text-blue-500 hover:underline" href="/login/">Back to Login</a></div>
+                  <div class="flex items-start text-sm font-medium text-gray-500 dark:text-gray-400"><a class="ml-auto text-blue-700 dark:text-blue-500 hover:underline" href="{{ route('auth.login') }}">Back to Login</a></div>
                </form>
             </div>
          </div>

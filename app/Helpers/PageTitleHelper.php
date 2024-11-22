@@ -18,10 +18,10 @@ class PageTitleHelper
             return $category ? count($category->posts) . ' Category: ' . $category->name : 'Category: Tidak Ditemukan';
         } elseif (isset($filters['search']) && isset($filters['author'])) {
             $author = User::where('username', $filters['author'])->first();
-            return $author ? 'Post by: ' . $author->name . ' / Search: ' . $filters['search'] : 'Post by: Tidak Ditemukan';
+            return $author ? ' Published by: ' . $author->name . ' / Search: ' . $filters['search'] : 'Post by: Tidak Ditemukan';
         } elseif (isset($filters['author'])) {
             $author = User::where('username', $filters['author'])->first();
-            return $author ? count($author->posts) . ' Post by: ' . $author->name : 'Post by: Tidak Ditemukan';
+            return $author ? count($author->posts) . ' Published by: ' . $author->name : 'Post by: Tidak Ditemukan';
         } elseif (isset($filters['search'])) {
             return 'Search results from: ' . $filters['search'];
         } else {

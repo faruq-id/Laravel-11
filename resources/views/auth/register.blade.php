@@ -8,12 +8,48 @@
                 <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo">
                 Flowbite    
             </a> --}}
+            @if(session()->has('success'))
+                <div id="alert-3" class="flex w-full sm:max-w-md xl:p-4 items-center p-4 mb-4 border border-green-300 text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+                    <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                    </svg>
+                    <span class="sr-only">Success</span>
+                    <div class="ms-3 text-sm font-medium">
+                        <span class="font-medium">Success!</span> {{ session('success') }}
+                    </div>
+                    <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-green-50 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-green-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    </button>
+                </div>
+            @endif
+
+            @if(session()->has('loginError'))
+                <div id="alert-3" class="flex w-full sm:max-w-md xl:p-4 items-center p-4 mb-4 border border-red-300 text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                    </svg>
+                    <span class="sr-only">Error</span>
+                    <div class="ms-3 text-sm font-medium">
+                        <span class="font-medium">Error!</span> {{ session('loginError') }}
+                    </div>
+                    <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-red-50 text-red-500 rounded-lg focus:ring-2 focus:ring-red-400 p-1.5 hover:bg-red-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-red-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-3" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    </button>
+                </div>
+            @endif
+
             <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                         Create an account
                     </h1>
-                    <form class="space-y-4 md:space-y-6" action="/register" method="POST">
+                    <form class="space-y-4 md:space-y-6" action="{{ route('auth.register.proses') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
                         <div>
@@ -33,35 +69,6 @@
                             </p>
                             @enderror
                         </div>
-                        {{-- <div class="relative">
-                            <input 
-                                type="text" 
-                                name="username" 
-                                id="username" 
-                                value="{{ old('username') }}" 
-                                aria-describedby="username_error_help"
-                                class="block px-2.5 pb-2.5 pt-4 w-full text-sm 
-                                       text-gray-900 bg-gray-50 rounded-lg border-1 
-                                       appearance-none dark:text-white border-gray-300 
-                                       focus:outline-none focus:ring-0 
-                                       dark:focus:ring-blue-500 dark:focus:border-blue-500 peer 
-                                       @error('username') border-red-600 dark:border-red-500 @enderror "
-                                placeholder=" "
-                            />
-                            <label for="username" class="absolute text-sm 
-                                @error('username') text-red-600 dark:text-red-500 @enderror 
-                                duration-300 transform -translate-y-4 scale-75 top-2 z-10 
-                                origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 
-                                peer-placeholder-shown:scale-100 
-                                peer-placeholder-shown:-translate-y-1/2 
-                                peer-placeholder-shown:top-1/2 
-                                peer-focus:top-2 peer-focus:scale-75 
-                                peer-focus:-translate-y-4 start-1 
-                                rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">
-                                Username
-                            </label>
-                        </div> --}}
-                    
                         
                         <div>
                             <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white @error('username') text-red-600 dark:text-red-500 @enderror">Your username</label>
@@ -79,6 +86,31 @@
                             
                             @error('username')
                             <p id="username_error_help" class="mt-1 text-xs text-red-600 dark:text-red-400">
+                                <span class="font-medium">Oops! </span> {{ $message }}
+                            </p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="phone_number" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white @error('phone_number') text-red-600 dark:text-red-500 @enderror">Phone number</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
+                                    {{-- <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 @error('phone_number') text-red-600 dark:text-red-500 @enderror" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                        <path fill="currentColor" d="M6.94318 11h-.85227l.96023-2.90909h1.07954L9.09091 11h-.85227l-.63637-2.10795h-.02272L6.94318 11Zm-.15909-1.14773h1.60227v.59093H6.78409v-.59093ZM9.37109 11V8.09091h1.25571c.2159 0 .4048.04261.5667.12784.162.08523.2879.20502.3779.35937.0899.15436.1349.33476.1349.5412 0 .20833-.0464.38873-.1392.54119-.0918.15246-.2211.26989-.3878.35229-.1657.0824-.3593.1236-.5809.1236h-.75003v-.61367h.59093c.0928 0 .1719-.0161.2372-.0483.0663-.03314.1169-.08002.152-.14062.036-.06061.054-.13211.054-.21449 0-.08334-.018-.15436-.054-.21307-.0351-.05966-.0857-.10511-.152-.13636-.0653-.0322-.1444-.0483-.2372-.0483h-.2784V11h-.78981Zm3.41481-2.90909V11h-.7898V8.09091h.7898Z"/>
+                                        <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M8.31818 2c-.55228 0-1 .44772-1 1v.72878c-.06079.0236-.12113.04809-.18098.07346l-.55228-.53789c-.38828-.37817-1.00715-.37817-1.39543 0L3.30923 5.09564c-.19327.18824-.30229.44659-.30229.71638 0 .26979.10902.52813.30229.71637l.52844.51468c-.01982.04526-.03911.0908-.05785.13662H3c-.55228 0-1 .44771-1 1v2.58981c0 .5523.44772 1 1 1h.77982c.01873.0458.03802.0914.05783.1366l-.52847.5147c-.19327.1883-.30228.4466-.30228.7164 0 .2698.10901.5281.30228.7164l1.88026 1.8313c.38828.3781 1.00715.3781 1.39544 0l.55228-.5379c.05987.0253.12021.0498.18102.0734v.7288c0 .5523.44772 1 1 1h2.65912c.5523 0 1-.4477 1-1v-.7288c.1316-.0511.2612-.1064.3883-.1657l.5435.2614v.4339c0 .5523.4477 1 1 1H14v.0625c0 .5523.4477 1 1 1h.0909v.0625c0 .5523.4477 1 1 1h.6844l.4952.4823c1.1648 1.1345 3.0214 1.1345 4.1863 0l.2409-.2347c.1961-.191.3053-.454.3022-.7277-.0031-.2737-.1183-.5342-.3187-.7207l-6.2162-5.7847c.0173-.0398.0342-.0798.0506-.12h.7799c.5522 0 1-.4477 1-1V8.17969c0-.55229-.4478-1-1-1h-.7799c-.0187-.04583-.038-.09139-.0578-.13666l.5284-.51464c.1933-.18824.3023-.44659.3023-.71638 0-.26979-.109-.52813-.3023-.71637l-1.8803-1.8313c-.3883-.37816-1.0071-.37816-1.3954 0l-.5523.53788c-.0598-.02536-.1201-.04985-.1809-.07344V3c0-.55228-.4477-1-1-1H8.31818Z"/>
+                                    </svg> --}}
+
+                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400 @error('phone_number') text-red-600 dark:text-red-500 @enderror" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 19 18">
+                                        <path d="M18 13.446a3.02 3.02 0 0 0-.946-1.985l-1.4-1.4a3.054 3.054 0 0 0-4.218 0l-.7.7a.983.983 0 0 1-1.39 0l-2.1-2.1a.983.983 0 0 1 0-1.389l.7-.7a2.98 2.98 0 0 0 0-4.217l-1.4-1.4a2.824 2.824 0 0 0-4.218 0c-3.619 3.619-3 8.229 1.752 12.979C6.785 16.639 9.45 18 11.912 18a7.175 7.175 0 0 0 5.139-2.325A2.9 2.9 0 0 0 18 13.446Z"/>
+                                    </svg>
+                                      
+                                </div>
+
+                                <input type="tel" name="phone_number" id="phone_number" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('phone_number') border-red-600 focus:ring-red-600 focus:border-red-600 dark:border-red-500 @enderror" placeholder="Phone number" required="" value="{{ old('phone_number') }}">
+                            </div>
+                            
+                            @error('phone_number')
+                            <p id="phone_number_error_help" class="mt-1 text-xs text-red-600 dark:text-red-400">
                                 <span class="font-medium">Oops! </span> {{ $message }}
                             </p>
                             @enderror
@@ -120,6 +152,7 @@
                             </p>
                             @enderror
                         </div>
+
                         <div>
                             <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white @error('password_confirmation') text-red-600 dark:text-red-500 @enderror">Confirm password</label>
                             <div class="relative">
@@ -137,6 +170,47 @@
                             </p>
                             @enderror
                         </div>
+                        
+                        <div class="w-full sm:flex-1 mt-3 sm:mt-0">
+                            <label x-data="{ files: null }" class="w-full flex flex-wrap items-center mt-1 px-4 py-3 bg-white dark:text-gray-400
+                            dark:bg-gray-700 rounded-md shadow-md border border-gray-300
+                              dark:border-transparent cursor-pointer hover:bg-gray-600 dark:hover:bg-black
+                              hover:text-white text-gray-600 ease-linear transition-all duration-150
+                              @error('profile_picture') border-red-600 focus:ring-red-600 focus:border-red-600  dark:border-red-500 @enderror">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                              </svg>
+                    
+                              <div class="ml-1 flex flex-col">
+                                <span class="text-sm leading-normal">Cari gambar</span>
+                                <span class="text-xs">(Maks Size 1Mb)</span>
+                                <span x-text="files ? files.map(file => file.name).join(', ') : 'no file. . .'" class="text-xs"></span>
+                              </div>
+                    
+                              <input x-on:change="files = Object.values($event.target.files)" type="file" accept="image/*" name="profile_picture" class="hidden" value="{{ old('profile_picture') }}" required/>
+                            </label>
+
+                            @error('profile_picture')
+                            <p id="profile_picture_error_help" class="mt-1 text-xs text-red-600 dark:text-red-400">
+                                <span class="font-medium">Oops! </span> {{ $message }}
+                            </p>
+                            @enderror
+                        </div>
+
+                        {{-- <div>
+                            <label for="profile_picture" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white @error('profile_picture') text-red-600 dark:text-red-500 @enderror">Upload file</label>
+                            <div class="relative">
+                                <input type="file" accept="image/*" name="profile_picture" required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 @error('profile_picture') border-red-600 focus:ring-red-600 focus:border-red-600  dark:border-red-500 @enderror">
+                            </div>
+
+                            @error('profile_picture')
+                            <p id="profile_picture_error_help" class="mt-1 text-xs text-red-600 dark:text-red-400">
+                                <span class="font-medium">Oops! </span> {{ $message }}
+                            </p>
+                            @enderror
+                        </div> --}}
+
                         <div class="flex items-start">
                             <div class="flex items-center h-5">
                               <input id="terms" name="terms" aria-describedby="terms" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="">
@@ -147,7 +221,7 @@
                         </div>
                         <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Create an account</button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Already have an account? <a href="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
+                            Already have an account? <a href="{{ route('auth.login') }}" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
                         </p>
                     </form>
                 </div>

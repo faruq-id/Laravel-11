@@ -1,20 +1,23 @@
-<nav class="sticky top-0 z-40 flex-none mx-auto w-full bg-white dark:bg-gray-900 fixed left-0 top-0 z-30 border-b border-gray-200 dark:border-gray-700" x-data="{ isOpen: false }">
+<nav 
+x-data="{ scrolled: false, isOpen: false }" 
+x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 100 })"
+:class="scrolled ? 'bg-white shadow-md dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700' : 'bg-transparent'"
+class="sticky top-0 z-40 flex-none mx-auto w-full fixed left-0 py-2" x-data="{ isOpen: false }">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">
             <div class="flex items-center">
                 <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                    <img src="img/logo.png" class="h-8" alt="Flowbite Logo" />
+                    <img src="/img/logo.png" class="h-8" alt="{{ $appName }}" />
                     <span class="self-center text-gray-900 text-2xl font-semibold whitespace-nowrap dark:text-white">SIAKAD</span>
                 </a>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-4">
                         <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                        <x-nav-link href="/" :active="request()->is('/')">Home</x-nav-link>
-                        <x-nav-link href="/about" :active="request()->is('about')">About</x-nav-link>
-                        <x-nav-link href="/services" :active="request()->is('services')">Service</x-nav-link>
-                        {{-- <x-nav-link href="/clients" :active="request()->is('clients')">Clinet</x-nav-link> --}}
-                        <x-nav-link href="/posts" :active="request()->is('posts')">Blog</x-nav-link>
-                        <x-nav-link href="/contact" :active="request()->is('contact')">Contact</x-nav-link>
+                        <x-nav-link href="{{ route('home.home') }}" :active="request()->is('/')">Home</x-nav-link>
+                        <x-nav-link href="{{ route('home.about') }}" :active="request()->is('about')">About</x-nav-link>
+                        <x-nav-link href="{{ route('home.services') }}" :active="request()->is('services')">Service</x-nav-link>
+                        <x-nav-link href="{{ route('blog.index') }}" :active="request()->is('blog')">Blog</x-nav-link>
+                        <x-nav-link href="{{ route('home.contact') }}" :active="request()->is('contact')">Contact</x-nav-link>
                     </div>
                 </div>
             </div>
@@ -23,13 +26,23 @@
                 <div class="ml-4 flex items-center md:ml-6">
                     {{-- Search --}}
                     <div class="relative hidden md:block mr-3">
-                        <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                            </svg>
-                            <span class="sr-only">Search icon</span>
-                        </div>
-                        <input type="text" id="search-navbar" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search...">
+                        <form action="{{ route('blog.index') }}">
+                            @if(request('category')) 
+                            <input type="hidden" name="category" value="{{ request('category') }}">
+                            @endif
+            
+                            @if(request('author')) 
+                            <input type="hidden" name="author" value="{{ request('author') }}">
+                            @endif
+            
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                                </svg>
+                                <span class="sr-only">Search icon</span>
+                            </div>
+                            <input type="search" id="search" name="search" required="" value="{{ request('search') }}" placeholder="Search for posts" class="block w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search...">
+                        </form>
                     </div>
                     {{-- Search --}}
 
@@ -45,8 +58,8 @@
 
                     {{-- Dark Mode --}}
                     <div x-data="{ isDark: localStorage.getItem('theme') === 'dark' }" x-init="$watch('isDark', value => localStorage.setItem('theme', value ? 'dark' : 'light'))" :class="{ 'dark': isDark }">
-                        <div class="flex items-center space-x-2 rtl:space-x-reverse ">
-                            <button @click="isDark = !isDark" class="costume-dark-mode px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white rounded-lg dark:text-white focus:ring-2 focus:ring-blue-300">
+                        <div class="flex items-center space-x-2 rtl:space-x-reverse mr-2">
+                            <button @click="isDark = !isDark" class="costume-dark-mode px-4 py-2.5 text-gray-800 hover:bg-blue-800 hover:text-white rounded-lg dark:text-white focus:ring-2 focus:ring-blue-300">
                                 
                                 <!-- Ikon Matahari (untuk mode terang) -->
                                 <svg x-show="isDark" x-cloak class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -63,7 +76,7 @@
 
                     {{-- Nav Right --}}
                     @auth
-                        <button type="button" class="relative px-3.5 py-1.5 rounded-lg text-gray-900 hover:bg-blue-500 hover:text-white dark:text-white dark:hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <button type="button" class="relative px-3.5 py-2 rounded-lg text-gray-900 hover:bg-blue-800 hover:text-white dark:text-white dark:hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-blue-300">
                             <span class="absolute -inset-1.5"></span>
                             <span class="sr-only">View notifications</span>
                                 <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
@@ -72,7 +85,7 @@
                         </button>
     
                         <!-- Profile dropdown -->
-                        <div class="relative ml-3">
+                        <div class="relative ml-3" x-data="{ isOpen: false }" @click.away="isOpen = false">
                             <div>
                                 <button type="button" title="{{ auth()->user()->name }}"  @click="isOpen = !isOpen" class="relative space-x-3 flex py-1 pr-2 max-w-xs items-center rounded-full bg-gray-100 dark:bg-gray-800 text-sm focus:outline-none hover:bg-blue-500 hover:text-white dark:text-white focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                     <span class="absolute -inset-1.5"></span>
@@ -80,11 +93,13 @@
                                     <span class="font-medium text-sm max-w-[18rem] truncate">
                                         {{ auth()->user()->name }}
                                     </span>
-                                    <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                                    {{-- <img class="h-8 w-8 rounded-full" src="{{ auth()->user()->profile_picture ? asset('storage/users/' . auth()->user()->profile_picture) : asset('/img/user.jpeg') }}" alt="{{ auth()->user()->name }}"> --}}
+                                    <img class="h-8 w-8 rounded-full" src="{{ imagesView(auth()->user()->profile_picture, null) }}" alt="{{ auth()->user()->name }}">
+                                    
                                     
                                 </button>
                             </div>
-                            <div  x-show="isOpen"
+                            <div x-show="isOpen"
                                 x-transition:enter="transition ease-out duration-100 transform"
                                 x-transition:enter-start="opacity-0 scale-95"
                                 x-transition:enter-end="opacity-100 scale-100"
@@ -96,17 +111,17 @@
                                     <span class="block text-sm font-semibold text-gray-900 dark:text-white">{{ auth()->user()->name }}</span>
                                     <span class="block text-sm text-gray-500 truncate dark:text-gray-400">{{ auth()->user()->email }}</span>
                                 </div>
-                                <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-blue-500" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                                <a href="/dashboard" class="block px-4 py-2 text-sm text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-blue-500" role="menuitem" tabindex="-1" id="user-menu-item-0">Dashboard</a>
+                                <a href="{{ route('admin.profile.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-blue-500" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                <a href="{{ route('admin.dashboard.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-blue-500" role="menuitem" tabindex="-1" id="user-menu-item-0">Dashboard</a>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:text-primary-700 dark:text-gray-300 dark:hover:text-blue-500" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                                <form action="logout" method="POST" class="block px-4 py-2 text-sm text-gray-700 mt-2 border-t border-gray-200 hover:text-primary-700 dark:text-white dark:hover:text-blue-500">
+                                <form action="{{ route('auth.logout') }}" method="POST" class="block px-4 py-2 text-sm text-gray-700 mt-2 border-t border-gray-200 hover:text-primary-700 dark:text-white dark:hover:text-blue-500">
                                     @csrf
                                     <button>Sign out</button>
                                 </form>
                             </div>
                         </div>
                     @else
-                        <x-nav-link class="text-gray-300 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 hover:text-white rounded-md  px-3 py-2 text-sm font-medium items-center inline-flex" href="/login" :active="request()->is('/login')">
+                        <x-nav-link class="text-gray-300 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 hover:text-white rounded-md  px-3 py-2 text-sm font-medium items-center inline-flex" href="{{ route('auth.login') }}" :active="request()->is('/login')">
                             Login <svg class="hidden w-3 h-3 ml-2 xl:inline" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"></path>
                             </svg>
@@ -138,7 +153,7 @@
 
 
                 {{-- Mobile menu button --}}
-                <button type="button" @click="isOpen = !isOpen" class="relative inline-flex p-2 items-center justify-center rounded-md bg-primary-500 text-gray-100 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800" aria-controls="mobile-menu" aria-expanded="false">
+                <button type="button" @click="isOpen = !isOpen"  aria-controls="mobile-menu" aria-expanded="false" class="relative inline-flex p-2 items-center justify-center rounded-md bg-primary-500 text-gray-100 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                     <span class="absolute -inset-0.5"></span>
                     <span class="sr-only">Open main menu</span>
                     <!-- Menu open: "hidden", Menu closed: "block" -->
@@ -155,20 +170,30 @@
     </div>
 
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div x-show="isOpen" class="md:hidden" id="mobile-menu">
+    <div x-show="isOpen" 
+                @click.away="isOpen = false" 
+                x-cloak
+                x-transition:enter="transition ease-out duration-200 transform"
+                x-transition:enter-start="opacity-0 scale-95"
+                x-transition:enter-end="opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-150 transform"
+                x-transition:leave-start="opacity-100 scale-100"
+                x-transition:leave-end="opacity-0 scale-95" 
+                class="md:hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-            <x-nav-link href="/" :active="request()->is('/')">Home</x-nav-link>
-            <x-nav-link href="/posts" :active="request()->is('posts')">Blog</x-nav-link>
-            <x-nav-link href="/services" :active="request()->is('services')">Services</x-nav-link>
-            <x-nav-link href="/about" :active="request()->is('about')">About</x-nav-link>
-            <x-nav-link href="/contact" :active="request()->is('contact')">Contact</x-nav-link>
+            <x-nav-link href="{{ route('home.home') }}" :active="request()->is('/')">Home</x-nav-link>
+            <x-nav-link href="{{ route('blog.index') }}" :active="request()->is('posts')">Blog</x-nav-link>
+            <x-nav-link href="{{ route('home.services') }}" :active="request()->is('services')">Services</x-nav-link>
+            <x-nav-link href="{{ route('home.about') }}" :active="request()->is('about')">About</x-nav-link>
+            <x-nav-link href="{{ route('home.contact') }}" :active="request()->is('contact')">Contact</x-nav-link>
         </div>
         @auth
             <div class="border-t border-gray-700 pb-3 pt-4">
                 <div class="flex items-center px-5">
                     <div class="shrink-0">
-                        <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+                        {{-- <img class="h-10 w-10 rounded-full" src="{{ auth()->user()->profile_picture ? asset('storage/users/' . auth()->user()->profile_picture) : asset('/img/user.jpeg') }}" alt="{{ auth()->user()->name }}"> --}}
+                        <img class="h-10 w-10 rounded-full" src="{{ imagesView(auth()->user()->profile_picture, null) }}" alt="{{ auth()->user()->name }}">
                     </div>
                     <div class="ml-3">
                         <div class="text-base/5 font-medium text-white">{{ auth()->user()->name }}</div>
@@ -183,10 +208,10 @@
                     </button>
                 </div>
                 <div class="mt-3 space-y-1 px-2">
-                    <a href="/profile" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your Profile</a>
-                    <a href="/dashboard" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Dashboard</a>
+                    <a href="{{ route('admin.profile.index') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your Profile</a>
+                    <a href="{{ route('admin.dashboard.index') }}" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Dashboard</a>
                     <a href="#" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
-                    <form action="logout" method="POST" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
+                    <form action="{{ route('auth.logout') }}" method="POST" class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">
                         @csrf
                         <button>Sign out</button>
                     </form>
@@ -194,12 +219,12 @@
             </div>
         @else
             <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-                <x-nav-link href="/login" :active="request()->is('/login')">
+                <x-nav-link href="{{ route('auth.login') }}" :active="request()->is('/login')">
                     <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2"/>
                     </svg> Login
                 </x-nav-link>
-                <x-nav-link href="/login" :active="request()->is('/login')">
+                <x-nav-link href="{{ route('auth.login') }}" :active="request()->is('/login')">
                     <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
                     </svg> Register

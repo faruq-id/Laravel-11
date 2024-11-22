@@ -41,9 +41,9 @@
         <div class="col-span-full xl:col-auto">
             <div class="mb-4 rounded-lg bg-white p-4 shadow dark:bg-gray-800 sm:p-6 xl:p-8">
             <div class="sm:flex sm:space-x-4 xl:block xl:space-x-0">
-                <img alt="" src="img/user.jpeg" class="mb-2 h-20 w-20 rounded-lg">
+                <img alt="" src="{{ auth()->user()->profile_picture ? asset('storage/users/' . auth()->user()->profile_picture) : asset('img/user.jpeg') }}" class="mb-2 h-20 w-20 rounded-lg">
                 <div>
-                    <h2 class="text-xl font-bold dark:text-white">Jese Leos</h2>
+                    <h2 class="text-xl font-bold dark:text-white">{{ auth()->user()->name }}</h2>
                     <ul class="mt-2 space-y-1">
                         <li class="flex items-center text-sm font-normal text-gray-500 dark:text-gray-400">
                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" class="mr-2 text-lg text-gray-900 dark:text-gray-100" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">
@@ -65,11 +65,11 @@
                 <div class="sm:flex-1">
                     <address class="text-sm font-normal not-italic text-gray-500 dark:text-gray-400">
                         <div class="mt-4">Email address</div>
-                        <a class="text-sm font-medium text-gray-900 dark:text-white" href="mailto:webmaster@flowbite.com">yourname@flowbite.com</a>
+                        <a class="text-sm font-medium text-gray-900 dark:text-white" href="mailto:webmaster@flowbite.com">{{ auth()->user()->email }}</a>
                         <div class="mt-4">Home address</div>
                         <div class="mb-2 text-sm font-medium text-gray-900 dark:text-white">92 Miles Drive, Newark, NJ 07103, California, <br>United States of America</div>
                         <div class="mt-4">Phone number</div>
-                        <div class="mb-2 text-sm font-medium text-gray-900 dark:text-white">+00 123 456 789 / +12 345 678</div>
+                        <div class="mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ auth()->user()->phone_number }}</div>
                     </address>
                 </div>
                 <div class="hidden sm:flex-1">
