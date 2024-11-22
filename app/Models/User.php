@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Storage;
 
 class User extends Authenticatable
 {
@@ -21,10 +22,12 @@ class User extends Authenticatable
     //proteksi yang boleh di insert (create) secara massal
     protected $fillable = [
         'name',
-        'usename',
+        'username',
+        'phone_number',
         'email',
-        'profile_picture',
+        //'password',
         'is_admin',
+        'profile_picture',
         'status',
         'last_login_at',
         'last_login_ip',
@@ -63,5 +66,15 @@ class User extends Authenticatable
     public function posts(): HasMany
     {
         return $this->hasMany(Post::class, 'author_id');
+    }
+
+    /**
+     * Digunakan untuk mengambil data profile_picture dari storage. di view tinggal manggil $user->profile_picture
+     *
+     * @return string
+     */
+    public function getProfilePictureAttribute(): string
+    {
+        return $this->profile_picture && Storage::has($this->profile_picture) ? Storage::url($this->profile_picture) : Storage::url('/users/no-image.png');
     }
 }
