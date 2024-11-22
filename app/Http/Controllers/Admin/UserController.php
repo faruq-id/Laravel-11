@@ -41,6 +41,7 @@ class UserController extends Controller
                 'email' => 'required|email|max:255|unique:users,email,' . $id,
                 'username' => 'nullable|string|max:255|unique:users,username,' . $id,
                 'phone_number' => 'nullable|string|max:15|unique:users,phone_number,' . $id,
+                'status' => 'required|in:active,inactive',
                 'is_admin' => 'required|integer|in:0,1',
                 'profile_picture' => ['sometimes', 'required', 'file', 'image', 'mimes:jpg,jpeg,png', 'mimetypes:image/jpeg,image/png', 'max:1024'],
                 // 'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1024',

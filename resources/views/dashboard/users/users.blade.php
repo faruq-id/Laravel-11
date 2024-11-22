@@ -202,7 +202,7 @@
                                         </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center">
-                                                @if ($user->status)
+                                                @if ($user->status == 'active')
                                                     <div class="mr-2 h-2.5 w-2.5 rounded-full bg-green-400"></div> Active
                                                 @else
                                                     <div class="mr-2 h-2.5 w-2.5 rounded-full bg-red-400"></div> Non-active
@@ -225,6 +225,7 @@
                                                             data-username="{{ $user->username }}"
                                                             data-email="{{ $user->email }}"
                                                             data-phone="{{ $user->phone_number }}"
+                                                            data-status="{{ $user->status }}"
                                                             data-is_admin="{{ $user->is_admin }}"
                                                             class="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                                                             <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -415,6 +416,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const username = button.getAttribute("data-username");
             const email = button.getAttribute("data-email");
             const phone = button.getAttribute("data-phone");
+            const status = button.getAttribute("data-status");
             const is_admin = button.getAttribute("data-is_admin");
 
             // Isi data ke input form di modal
@@ -422,6 +424,7 @@ document.addEventListener("DOMContentLoaded", function () {
             modal.querySelector("#username").value = username;
             modal.querySelector("#email").value = email;
             modal.querySelector("#phone").value = phone;
+            modal.querySelector("#status").value = status;
             modal.querySelector("#is_admin").value = is_admin;
                 
             const updateUserUrl = "{{ route('admin.users.update', ':id') }}";
