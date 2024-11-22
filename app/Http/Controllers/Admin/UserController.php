@@ -41,7 +41,7 @@ class UserController extends Controller
                 'email' => 'required|email|max:255|unique:users,email,' . $id,
                 'username' => 'nullable|string|max:255|unique:users,username,' . $id,
                 'phone_number' => 'nullable|string|max:15|unique:users,phone_number,' . $id,
-                'is_admin' => 'nullable',
+                'is_admin' => 'required|integer|in:0,1',
                 'profile_picture' => ['sometimes', 'required', 'file', 'image', 'mimes:jpg,jpeg,png', 'mimetypes:image/jpeg,image/png', 'max:1024'],
                 // 'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1024',
             ]);
@@ -100,18 +100,16 @@ class UserController extends Controller
                 // Gabungkan path storage dengan nama file untuk penyimpanan di database
                 $fullPath = $path; // Contoh: "storage/users/nama-file.jpg"
 
-                // Hapus file lama jika bukan file default
-                // if ($user->profile_picture && $user->profile_picture !== 'no-picture.jpg') {
-                //     Storage::disk('public')->delete('users/' . $user->profile_picture);
-                // }
-            } else {
-                // jika user tidak mengupload gambar, isi dengan gambar default
-                $fullPath = null;
-            }
+                // Tambahkan gambar ke data tervalidasi
+                // Perbarui nama file yang akan disimpan ke database
+                $user->profile_picture = $fullPath;
+            } 
+            // else {
+            //     // jika user tidak mengupload gambar, isi dengan gambar default
+            //     $fullPath = null;
+            // }
 
-            // Tambahkan gambar ke data tervalidasi
-            // Perbarui nama file yang akan disimpan ke database
-            $user->profile_picture = $fullPath;
+            
 
             // Simpan perubahan ke database
             $user->update(); //$user->save();
