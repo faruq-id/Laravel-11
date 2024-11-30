@@ -70,6 +70,7 @@
             </g>
         </svg>
 
+        {{-- properti design bulat sinngle top left --}}
         <svg class="absolute top-0 left-0 max-w-md -mt-60 -ml-10 left-svg hidden lg:block" viewBox="0 0 423 423" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <defs>
                 <!-- Gradient Definition -->
@@ -101,7 +102,6 @@
                 </g>
             </g>
         </svg>
-        
         
 
         {{-- properti design segi tiga sinngle left center --}}
