@@ -70,16 +70,12 @@ class RegisterController extends Controller
                 $namaFile = $slug . '-' . time() . "." . $extFile;
                 // Proses upload, simpan ke dalam folder "uploads"
                 // $path = $request->profile_picture->storeAs('public/users', $namaFile);
-                $path = $request->profile_picture->storeAs('users', $namaFile, 'public'); //storange/app/public/users
+                $newFilePath = $request->profile_picture->storeAs('users', $namaFile, 'public'); //storange/app/public/users
                 // Debugging path
                 // dd('File saved to: ' . $path);
-            } else {
-                // jika user tidak mengupload gambar, isi dengan gambar default
-                $namaFile = 'no-picture.jpg';
-            }
+                $validatedData['profile_picture'] = $newFilePath;
+            } 
 
-            $validatedData['profile_picture'] = $namaFile;
-            
             User::create($validatedData);
 
             //$request->session()->flash('success', 'Registration successful!');
