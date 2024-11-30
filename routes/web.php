@@ -91,8 +91,11 @@ Route::group(['middleware' => 'isLogin', 'as' => 'admin.'], function() {
             return view('dashboard.posts.posting', ['title' => 'Posts', 'postings' => $posts]);
         })->name('posts.index');
 
+        // USERS ROUTE
         Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::post('/user/add', [UserController::class, 'store'])->name('users.add');
         Route::post('/users/{id}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
         Route::get('/category', function () {
             $categorys =  Category::latest()->paginate(5);
