@@ -14,66 +14,112 @@
             </div>
         </form>
         {{-- Nav    --}}
-        <ul class="space-y-2">
-            <li>
-                <a href="{{ route('admin.dashboard.index') }}" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <svg aria-hidden="true" class="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path><path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
+        {{-- <ul class="space-y-2"> --}}
+        <ul class="space-y-2" x-data="{ openMenu: null }">
+            <!-- Menu Dashboard -->
+            <li title="Dashboard">
+                <a href="{{ route('admin.dashboard.index') }}"
+                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg group
+                dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 
+                {{ request()->routeIs('admin.dashboard.index') ? 'bg-gray-200 dark:bg-gray-900' : '' }}">
+                    <svg aria-hidden="true" class="w-6 h-6 text-gray-500 transition duration-75 
+                        dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor"
+                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
+                        <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
                     </svg>
                     <span x-show="!openSidebar" x-cloak class="ml-3">Dashboard</span>
                 </a>
             </li>
-            <li>
+
+            <li title="Mahasiswa">
                 <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                         <path fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293 3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1a5.503 5.503 0 0 1-.471.762A5.998 5.998 0 0 1 19.5 18ZM4 7.5a3.5 3.5 0 0 1 5.477-2.889 5.5 5.5 0 0 0-2.796 6.293A3.501 3.501 0 0 1 4 7.5ZM7.1 12H6a4 4 0 0 0-4 4 2 2 0 0 0 2 2h.5a5.998 5.998 0 0 1 3.071-5.238A5.505 5.505 0 0 1 7.1 12Z" clip-rule="evenodd"/>
                     </svg>                                            
                     <span x-show="!openSidebar" x-cloak class="ml-3">Mahasiswa</span>
                 </a>
             </li>
-            <li>
-                <button type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-pages" data-collapse-toggle="dropdown-pages">
+
+            <li x-data="{ open: {{ request()->routeIs('admin.posts.*') || request()->routeIs('admin.category.*') ? 'true' : 'false' }} }">
+                <button type="button"
+                    @click="open = !open"
+                    class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg group
+                    transition duration-75 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 
+                    {{ request()->routeIs('admin.posts.*') || request()->routeIs('admin.category.*') ? 'bg-gray-200 dark:bg-gray-900' : '' }}">
                     <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path></svg>
                     <span x-show="!openSidebar" x-cloak class="flex-1 ml-3 text-left whitespace-nowrap">Pages</span>
                     <svg x-show="!openSidebar" aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <ul id="dropdown-pages" class="hidden py-2 space-y-2">
-                    <li>
-                        <a href="{{ route('admin.posts.index') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Post</a>
+                <ul x-show="open" class="py-2 space-y-2" x-transition>
+                    <li title="Post">
+                        <a href="{{ route('admin.posts.index') }}"
+                        :class="!openSidebar ? 'pl-11' : ''"
+                        class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg
+                        transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 
+                        {{ request()->routeIs('admin.posts.index') ? 'bg-gray-300 dark:bg-gray-900' : '' }}">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">P</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Post</span>
+                        </a>
                     </li>
-                    <li>
-                        <a href="{{ route('admin.category.index') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Category</a>
+                    <li title="Category">
+                        <a href="{{ route('admin.category.index') }}"
+                        :class="!openSidebar ? 'pl-11' : ''"
+                        class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg
+                        transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 
+                        {{ request()->routeIs('admin.category.index') ? 'bg-gray-300 dark:bg-gray-900' : '' }}">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">C</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Category</span>
+                        </a>
                     </li>
-                    <li>
-                        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Kanban</a>
+                    <li title="Kanban">
+                        <a href="#" :class="!openSidebar ? 'pl-11' : ''" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">K</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Kanban</span>
+                        </a>
                     </li>
-                    <li>
-                        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Calendar</a>
+                    <li title="Calendar">
+                        <a href="#" :class="!openSidebar ? 'pl-11' : ''" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">C</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Calendar</span>
+                        </a>
                     </li>
                 </ul>
             </li>
-            <li>
-                <button type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-sales" data-collapse-toggle="dropdown-sales">
+            
+            <li x-data="{ open: false}">
+                <button type="button" @click="open = !open" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-sales" data-collapse-toggle="dropdown-sales">
                     <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clip-rule="evenodd"></path></svg>
                     <span x-show="!openSidebar" x-cloak class="flex-1 ml-3 text-left whitespace-nowrap">Sales</span>
                     <svg x-show="!openSidebar" aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <ul id="dropdown-sales" class="hidden py-2 space-y-2">
-                        <li>
-                            <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Products</a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Billing</a>
-                        </li>
-                        <li>
-                            <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Invoice</a>
-                        </li>
+                {{-- <ul id="dropdown-sales" class="hidden py-2 space-y-2"> --}}
+                <ul x-show="open" class="py-2 space-y-2" x-transition>
+                    <li title="Products">
+                        <a href="#" :class="!openSidebar ? 'pl-11' : ''" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">P</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Products</span>
+                        </a>
+                    </li>
+                    <li title="Billing">
+                        <a href="#" :class="!openSidebar ? 'pl-11' : ''" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">B</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Billing</span>
+                        </a>
+                    </li>
+                    <li title="Invoice">
+                        <a href="#" :class="!openSidebar ? 'pl-11' : ''" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">I</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Invoice</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
+
             <li>
                 <a href="#" class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
                     <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"></path><path d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"></path></svg>
@@ -84,26 +130,54 @@
                 </a>
             </li>
 
-            <li>
-                <button type="button" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-authentication" data-collapse-toggle="dropdown-authentication">
-                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" data-testid="flowbite-sidebar-collapse-icon" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path></svg>
+            <!-- Menu Users -->
+            <li x-data="{ open: {{ request()->routeIs('admin.profile.*') || request()->routeIs('admin.users.*') ? 'true' : 'false' }} }">
+                <button type="button"
+                    @click="open = !open"
+                    class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg group
+                    transition duration-75 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 
+                    {{ request()->routeIs('admin.profile.*') || request()->routeIs('admin.users.*') ? 'bg-gray-200 dark:bg-gray-900' : '' }}">
+                    <svg class="w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:group-hover:text-white"
+                        fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"></path>
+                    </svg>
                     <span x-show="!openSidebar" x-cloak class="flex-1 ml-3 text-left whitespace-nowrap">Users</span>
                     <svg x-show="!openSidebar" aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                     </svg>
                 </button>
-                <ul id="dropdown-authentication" class="hidden py-2 space-y-2">
-                    <li>
-                        <a href="{{ route('admin.users.index') }}" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Users</a>
+                <ul x-show="open" class="py-2 space-y-2" x-transition>
+                    <li title="User">
+                        <a href="{{ route('admin.users.index') }}"
+                        :class="!openSidebar ? 'pl-11' : ''"
+                        class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg
+                        transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 
+                        {{ request()->routeIs('admin.users.index') ? 'bg-gray-300 dark:bg-gray-900' : '' }}">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">U</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Users</span>
+                        </a>
                     </li>
-                    <li>
-                        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Profile</a>
+                    <li title="Profile">
+                        <a href="{{ route('admin.profile.index') }}"
+                        :class="!openSidebar ? 'pl-11' : ''"
+                        class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg
+                        transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 
+                        {{ request()->routeIs('admin.profile.index') ? 'bg-gray-300 dark:bg-gray-900' : '' }}">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">P</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Profile</span>
+                        </a>
                     </li>
-                    <li>
-                        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Feed</a>
+                    <li title="Feed">
+                        <a href="#" :class="!openSidebar ? 'pl-11' : ''" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">F</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Feed</span>
+                        </a>
                     </li>
-                    <li>
-                        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Settings</a>
+                    <li title="Settings">
+                        <a href="#" :class="!openSidebar ? 'pl-11' : ''" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">S</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Settings</span>
+                        </a>
                     </li>
                 </ul>
             </li>
