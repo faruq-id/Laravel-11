@@ -5,9 +5,14 @@
         {{ $title }}
     </h1>
     
-    <div class="px-4"><x-dashboard-err></x-dashboard-err></div>
+    <div class="pt-2">
+        <x-alert type="error" />
+        <x-alert type="success" />
+        <x-alert type="warning" />
+        <x-alert type="info" />
+    </div>
 
-    <div class="px-4 pt-6">
+    <div class="px-4 pt-2">
         <div class="rounded-lg bg-white p-4 shadow dark:bg-gray-800 sm:p-6 xl:p-8">
             <div class="mb-4 flex items-center justify-between">
                 <div class="shrink-0">
