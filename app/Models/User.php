@@ -25,7 +25,7 @@ class User extends Authenticatable
         'username',
         'phone_number',
         'email',
-        //'password',
+        'password',
         'is_admin',
         'profile_picture',
         'status',
@@ -73,8 +73,8 @@ class User extends Authenticatable
      *
      * @return string
      */
-    public function getProfilePictureAttribute(): string
-    {
-        return $this->profile_picture && Storage::has($this->profile_picture) ? Storage::url($this->profile_picture) : Storage::url('/users/no-image.png');
-    }
+    // public function getProfilePictureAttribute(): string
+    // {
+    //     return $this->profile_picture && Storage::has($this->profile_picture) ? Storage::url($this->profile_picture) : Storage::url('/users/no-image.png');
+    // }
 }
