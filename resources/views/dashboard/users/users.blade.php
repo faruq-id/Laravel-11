@@ -228,7 +228,7 @@
                                                 @endif
                                             </div>
                                         </td>
-                                        <td class="px-4 py-3 max-w-[12rem] truncate">{{ $user->last_login_at }}</td>
+                                        <td class="px-4 py-3 max-w-[12rem] truncate">{{ $user->last_login_at ?? "-" }}</td>
                                         <td class="px-4 py-3 flex items-center justify-end">
                                             <button id="{{ md5($user->id) }}-dropdown-button" data-dropdown-toggle="{{ md5($user->id) }}-dropdown" class="inline-flex items-center text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 p-1.5 dark:hover-bg-gray-800 text-center text-gray-500 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400 dark:hover:text-gray-100" type="button">
                                                 <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
