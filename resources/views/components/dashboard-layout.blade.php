@@ -15,7 +15,12 @@
     
         <div class="flex items-start pt-16">
             {{-- Sidebar --}}
-            <div :class="!openSidebar ? 'w-64' : 'w-16'" class="lg:!block hidden pt-10 flex-shrink-0 transition-all duration-300">
+            <div x-data="{ 
+                openSidebar: JSON.parse(localStorage.getItem('openSidebar')) ?? true 
+            }"
+            x-init="$watch('openSidebar', value => localStorage.setItem('openSidebar', JSON.stringify(value)))"
+            @toggle-sidebar.window="openSidebar = !openSidebar"
+            :class="!openSidebar ? 'w-64' : 'w-16'" class="lg:!block hidden pt-10 flex-shrink-0 transition-all duration-300">
                 <x-dashboard-nav></x-dashboard-nav>
             </div>
     

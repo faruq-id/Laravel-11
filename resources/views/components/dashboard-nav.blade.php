@@ -1,4 +1,9 @@
-<aside :class="!openSidebar ? 'w-64' : 'w-16'" class="fixed top-0 pt-16 left-0 h-full bg-white text-gray-900  border-r border-gray-200 transition-all duration-300 dark:border-gray-700 dark:bg-gray-800">
+<aside x-data="{ 
+    openSidebar: JSON.parse(localStorage.getItem('openSidebar')) ?? true 
+}"
+x-init="$watch('openSidebar', value => localStorage.setItem('openSidebar', JSON.stringify(value)))"
+@toggle-sidebar.window="openSidebar = !openSidebar"
+:class="!openSidebar ? 'w-64' : 'w-16'" class="fixed top-0 pt-16 left-0 h-full bg-white text-gray-900  border-r border-gray-200 transition-all duration-300 dark:border-gray-700 dark:bg-gray-800">
     <div class="overflow-y-auto pt-4 pb-4 px-3 h-full">
         {{-- Search --}}
         <form class="pb-3 md:hidden">
