@@ -92,11 +92,14 @@ Route::group(['middleware' => 'isLogin', 'as' => 'admin.'], function() {
         })->name('posts.index');
 
         // USERS ROUTE
-        Route::get('/users', [UserController::class, 'index'])->name('users.index');
-        Route::post('/user/add', [UserController::class, 'store'])->name('users.add');
-        Route::post('/users/{id}', [UserController::class, 'update'])->name('users.update');
-        Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-
+        Route::group(['prefix' => 'users'], function() {
+            Route::get('/', [UserController::class, 'index'])->name('users.index');
+            //Route::get('/{id}', [UserController::class, 'show'])->name('users.show');
+            Route::post('/', [UserController::class, 'store'])->name('users.add');
+            Route::put('/{id}', [UserController::class, 'update'])->name('users.update');
+            Route::delete('/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+        });
+        
         Route::get('/category', function () {
             $categorys =  Category::latest()->paginate(5);
             return view('dashboard.category', ['title' => 'Category', 'categorys' => $categorys]);
