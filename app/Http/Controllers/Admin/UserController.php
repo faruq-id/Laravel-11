@@ -9,11 +9,21 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Database\QueryException;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    // public static function middleware()
+    // {
+    //     return [
+    //         'isLogin',
+    //         new Middleware('isAdmin', only: ['index']), //Jika mau menerapkan hanya pada methode index
+    //         //new Middleware('IsAdmin', except: ['index']), // jika mau menerapkan ke semua methode se lain index
+    //     ];
+    // }
+
     public function index()
     {
         $users =  User::latest()->paginate(10);
