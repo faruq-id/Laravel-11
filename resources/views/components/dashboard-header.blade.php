@@ -15,33 +15,32 @@
                   </svg>
                </button> --}}
 
-               <!-- Tombol di luar scope x-data -->
                <button 
                   @click="$dispatch('toggle-sidebar')" 
                   title="Dekstop" 
                   class="lg:!block hidden mr-3 p-2 cursor-pointer rounded text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                  <!-- Ikon Hamburger -->
+                  {{-- Ikon Hamburger --}}
                   <svg x-data 
-                     x-init="$watch('isOpen', value => localStorage.setItem('openSidebar', value))" 
-                     x-show="!JSON.parse(localStorage.getItem('openSidebar'))" 
+                     {{-- x-init="$watch('isOpen', value => localStorage.setItem('openSidebar', value))"  --}}
+                     {{-- x-show="!JSON.parse(localStorage.getItem('openSidebar'))"  --}}
                      x-cloak class="h-6 w-6" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20">
                      <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                   </svg>
-                  <!-- Ikon Close -->
-                  <svg x-data 
+                  {{-- Ikon Close --}}
+                  {{-- <svg x-data 
                      x-show="JSON.parse(localStorage.getItem('openSidebar')) ?? true" 
                      x-cloak xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
+                  </svg> --}}
                </button>
            
 
                <button @click="openSidebar = true" title="Mobile" class="md:!hidden block mr-3 p-2 cursor-pointer rounded text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
-                  <!-- Ikon Hamburger -->
+                  {{-- Ikon Hamburger --}}
                   <svg x-show="!openSidebar" x-cloak class="h-6 w-6" height="1em" width="1em" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                      <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
                   </svg>
-                  <!-- Ikon Close -->
+                  {{-- Ikon Close --}}
                   <svg x-show="openSidebar" x-cloak xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
