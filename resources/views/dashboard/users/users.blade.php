@@ -5,12 +5,12 @@
     <div class="grid grid-cols-1 gap-y-6 dark:bg-gray-900 xl:grid-cols-3 xl:gap-4">
         <div class="col-span-full dark:bg-gray-800 p-4">
             <div class="flex items-center justify-between">
-                <!-- Title -->
+                {{-- Title --}}
                 <h1 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">
                     All {{ $title }}
                 </h1>
             
-                <!-- Navigation -->
+                {{-- Navigation --}}
                 <nav aria-label="Breadcrumb" class="text-right">
                     <ol class="flex items-center">
                         <li class="group flex items-center">
@@ -63,10 +63,10 @@
         
 
         <div class="col-span-full px-4">
-            <!-- Start block -->
+            {{-- Start block --}}
             <section class="bg-gray-50 dark:bg-gray-900 antialiased">
                 <div class="w-full">
-                    <!-- Start coding here -->
+                    {{-- Start coding here --}}
                     <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
                         <div class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
                             <div class="w-full md:w-1/2">
@@ -298,18 +298,18 @@
                     </div>
                 </div>
             </section>
-            <!-- End block -->
+            {{-- End block --}}
             
-            <!-- Create modal -->
+            {{-- Create modal --}}
             @include('dashboard.users.form-add')
 
-            <!-- Update modal -->
+            {{-- Update modal --}}
             @include('dashboard.users.form-edit')
 
-            <!-- Read modal -->
+            {{-- Read modal --}}
             @include('dashboard.users.read-user')
 
-            <!-- Delete modal -->
+            {{-- Delete modal --}}
             @include('dashboard.users.delete-user')
 
         </div>

@@ -1,8 +1,8 @@
 <div id="readUserModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-xl max-h-full">
-        <!-- Modal content -->
+        {{-- Modal content --}}
         <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-            <!-- Modal header -->
+            {{-- Modal header --}}
             <div class="flex justify-between mb-4 rounded-t sm:mb-5">
                 <img class="h-20 w-20 rounded-md" id="dataimages" src="{{ imagesView($user->profile_picture, null) }}" alt="{{ $user->name }}">
                 <div class="text-lg text-gray-900 md:text-xl dark:text-white">

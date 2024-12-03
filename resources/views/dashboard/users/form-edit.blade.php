@@ -1,8 +1,8 @@
 <div id="updateUsersModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
+        {{-- Modal content --}}
         <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-            <!-- Modal header -->
+            {{-- Modal header --}}
             <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Update {{ $title }} <span class="title-name"></span></h3>
                 <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="updateUsersModal">
@@ -12,7 +12,7 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
+            {{-- Modal body --}}
             <form id="editUserForm" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -123,9 +123,9 @@
                         </select>
                     </div>
                     <div>
-                        <label for="profile_picture" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white @error('profile_picture') text-red-600 dark:text-red-500 @enderror">Profile Picture</label>
+                        <label for="profile_picture" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white @error('profile_picture') !text-red-600 !dark:text-red-500 @enderror">Profile Picture</label>
                         <div class="relative">
-                            <input type="file" accept="image/jpeg, image/jpg, image/png" name="profile_picture" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 @error('profile_picture') border-red-600 focus:ring-red-600 focus:border-red-600  dark:border-red-500 @enderror">
+                            <input type="file" accept="image/jpeg, image/jpg, image/png" name="profile_picture" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 !dark:border-gray-600 dark:placeholder-gray-400 @error('profile_picture') border-red-600 focus:ring-red-600 focus:border-red-600  dark:border-red-500 @enderror">
                         </div>
                     </div>
                     
