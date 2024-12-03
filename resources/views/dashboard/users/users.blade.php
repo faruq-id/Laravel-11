@@ -255,10 +255,16 @@
                                                         </button>
                                                     </li>
                                                     <li>
-                                                        <button type="button" data-modal-target="readProductModal" data-modal-toggle="readProductModal" 
+                                                        <button type="button" data-modal-target="readUserModal" data-modal-toggle="readUserModal" 
+                                                            data-id="{{ Crypt::encrypt($user->id) }}" 
+                                                            data-image="{{ imagesView($user->profile_picture, null) }}" 
                                                             data-name="{{ $user->name }}"
+                                                            data-username="{{ $user->username }}"
                                                             data-email="{{ $user->email }}"
                                                             data-phone="{{ $user->phone_number }}"
+                                                            data-status="{{ $user->status }}"
+                                                            data-is_admin="{{ $user->is_admin }}"
+                                                            data-last_login="{{ $user->last_login_at ?? "-" }}"
                                                             class="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                                                             <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                                 <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
@@ -304,33 +310,7 @@
             @include('dashboard.users.read-user')
 
             <!-- Delete modal -->
-            <div id="deleteModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="relative p-4 w-full max-w-md max-h-full">
-                    <!-- Modal content -->
-                    <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                        
-                        <button type="button" class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="deleteModal">
-                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                        
-                        <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                        </svg>
-                        <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to delete this item?</p>
-                        <div class="flex justify-center items-center space-x-4">
-                            <button data-modal-toggle="deleteModal" type="button" class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
-                            <form id="deleteUserForm" method="POST">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">Yes, I'm sure</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @include('dashboard.users.delete-user')
 
         </div>
     </div>
@@ -338,6 +318,69 @@
  
 
 <script>
+// Read
+document.addEventListener("DOMContentLoaded", function () {
+    const updateButtons = document.querySelectorAll("[data-modal-toggle='readUserModal']");
+    const modal = document.getElementById("readUserModal");
+
+    updateButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            // Ambil data dari atribut tombol
+            const id = button.getAttribute("data-id");
+            const dataimage = button.getAttribute("data-image");
+            const name = button.getAttribute("data-name");
+            const username = button.getAttribute("data-username");
+            const email = button.getAttribute("data-email");
+            const phone = button.getAttribute("data-phone");
+            const status = button.getAttribute("data-status");
+            const is_admin = button.getAttribute("data-is_admin");
+            if(is_admin==1) {
+                var adm = "Admin";
+            } else {
+                var adm = "Guest";
+            }
+            const last_login = button.getAttribute("data-last_login");
+
+            // Isi data ke input form di modal
+            modal.querySelector("#name").innerHTML = name;
+            modal.querySelector("#username").innerHTML = username;
+            modal.querySelector("#email").innerHTML = email;
+            modal.querySelector("#phone-number").innerHTML = phone;
+            modal.querySelector("#status").innerHTML = status;
+            modal.querySelector("#is_admin").innerHTML = adm;
+            modal.querySelector("#last_login").innerHTML = last_login;
+
+            const imageElement = document.querySelector("#dataimages"); // Ambil elemen img
+            const imageUrl = dataimage; // URL gambar baru
+            // Set nilai atribut src
+            imageElement.src = imageUrl;
+            imageElement.alt = name;
+
+
+            // Ambil tombol target
+            const editButton = modal.querySelector("#editButtonView");
+
+            // Set atribut tombol target di modal
+            editButton.setAttribute("data-id", id);
+            editButton.setAttribute("data-name", name);
+            editButton.setAttribute("data-username", username);
+            editButton.setAttribute("data-email", email);
+            editButton.setAttribute("data-phone", phone);
+            editButton.setAttribute("data-status", status);
+            editButton.setAttribute("data-is_admin", is_admin);
+            editButton.setAttribute("data-last_login", last_login);
+
+
+            // Ambil tombol target
+            const deleteButton = modal.querySelector("#deleteButtonView");
+            // Set atribut tombol target di modal
+            deleteButton.setAttribute("data-id", id);
+ 
+        });
+    });
+});
+
+// Update
 document.addEventListener("DOMContentLoaded", function () {
     const updateButtons = document.querySelectorAll("[data-modal-toggle='updateUsersModal']");
     const modal = document.getElementById("updateUsersModal");
