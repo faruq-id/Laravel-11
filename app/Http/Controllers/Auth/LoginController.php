@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\LoginNotification;
 
 class LoginController extends Controller
 {
@@ -13,6 +15,7 @@ class LoginController extends Controller
             'title' => 'Login'
         ]);
     }
+
 
     public function authenticate(Request $request)
     {
@@ -26,13 +29,18 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             // Update last_login_at dengan waktu sekarang
-            Auth::user()->update(['last_login_at' => now()]);
+            $user = Auth::user();
+            $user->update(['last_login_at' => now()]);
 
-            return redirect()->intended('/dashboard')->with('success', 'Selamat datang ' . Auth::user()->name);
-        }
+            // Kirim notifikasi login
+            $user->notify(new LoginNotification($user));
+
+                return redirect()->intended('/dashboard')->with('success', 'Selamat datang ' . Auth::user()->name);
+            }
 
         return back()->with('error', 'Login failed!');
     }
+
 
     public function logout(Request $request)
     {
