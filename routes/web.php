@@ -5,14 +5,16 @@ use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Arr;
 use App\Helpers\PageTitleHelper;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Middleware\AdminAccess;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Root\BlogController;
 use App\Http\Controllers\Root\HomeController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 
 // ROUTE PAGES
 // Route::get('/', function () {
@@ -39,12 +41,11 @@ Route::middleware(['guest'])->group(function () {
     Route::post('/register', [RegisterController::class, 'store'])->name('auth.register.proses');
     Route::get('/login', [LoginController::class, 'login'])->name('auth.login');
     Route::post('/login', [LoginController::class, 'authenticate'])->name('auth.login.proses');
-    Route::get('/forgot-password', function () {
-        return view('auth.forgot-password', ['title' => 'Forgot Password']);
-    })->name('auth.forgot.pasword');
-    Route::get('/reset-password', function () {
-        return view('auth.reset-password', ['title' => 'Reset Password']);
-    })->name('auth.reset.pasword');
+
+    Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('auth.forgot.pasword');
+    Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('auth.forgot.pasword.verify');
+    Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+    Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('auth.logout');
