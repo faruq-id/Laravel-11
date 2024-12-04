@@ -3,12 +3,18 @@
 
    <section class="bg-gray-50 h-screen dark:bg-gray-900 rounded-md shadow-md">
       <div class="flex flex-col pt-10 items-center justify-center px-4 py-16 mx-auto {{--md:h-screen--}} lg:py-16">
+         <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+            <img class="w-10 h-10 mr-2" src="/img/logo.png" alt="{{ $appName }} ">
+            {{ $appName }}    
+        </a>
+
          <div class="w-full sm:max-w-screen-sm mb-2">
             <x-alert type="error" />
             <x-alert type="success" />
             <x-alert type="warning" />
             <x-alert type="info" />
          </div>
+         
          <div class="w-full bg-white rounded-lg shadow md:mt-0 sm:max-w-screen-sm xl:p-0 dark:bg-gray-800">
             
             <div class="p-6 w-full sm:p-8 md:p-16">
