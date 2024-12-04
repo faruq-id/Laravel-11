@@ -24,6 +24,9 @@ return new class extends Migration
                 table: 'categories', 
                 indexName: 'posts_category_id'
             );
+            $table->string('image')->nullable(); // FEATURED IMAGE
+            $table->string('keywords')->nullable(); // KEYWORDS
+            $table->string('metadesc')->nullable(); // META DESCRIPTION
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

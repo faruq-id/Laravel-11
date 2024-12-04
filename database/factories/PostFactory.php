@@ -42,8 +42,10 @@ class PostFactory extends Factory
                         "<h3>" . fake()->sentence() . "</h3>\n\n" . // Heading level 3
                         implode("\n\n", array_map(fn() => "<p>" . fake()->paragraph() . "</p>", fake()->paragraphs(2)))  . "\n\n" .// 2 paragraphs
                         "<h3>" . fake()->sentence() . "</h3>\n\n" . // Heading level 3
-                        implode("\n\n", array_map(fn() => "<p>" . fake()->paragraph() . "</p>", fake()->paragraphs(2)))  // 2 paragraphs
-
+                        implode("\n\n", array_map(fn() => "<p>" . fake()->paragraph() . "</p>", fake()->paragraphs(2))),  // 2 paragraphs
+            'image' => fake()->imageUrl(640, 480, 'posts', true, 'Faker'), // Random image URL
+            'keywords' => fake()->words(3, true), // Random keywords
+            'metadesc' => fake()->sentence(10), // Random meta description
         ];
     }
 }
