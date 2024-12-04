@@ -42,9 +42,9 @@ class UserController extends Controller
 
             $validatedData = $request->validate([
                     'name' => 'required|alpha_spaces|max:61',
-                    'username' => ['required', 'min:4', 'max:31', 'unique:users'],
+                    'username' => ['required', 'min:6', 'max:31', 'unique:users', 'regex:/^[a-zA-Z0-9._]+$/'],
                     'phone_number' => ['required', 'digits_between:10,15', 'unique:users'], //'no_hp' => ['required', 'regex:/^08\d{8,12}$/', 'unique:users'],
-                    'email' => ['required', 'email:dns', 'unique:users'],
+                    'email' => ['required', 'email:dns', 'max:255', 'unique:users'],
                     'password' => ['required', 'min:6', 'max:255', 'confirmed'],
                     'password_confirmation' => ['required', 'min:6', 'max:255'],
                     'status' => 'required|in:active,inactive',
@@ -53,6 +53,7 @@ class UserController extends Controller
                     //'terms' => 'accepted' // Validasi checkbox terms harus dicentang
                 ], [
                     'name.alpha_spaces' => 'The attribute field may only contain letters and spaces.', //'Nama hanya boleh berisi huruf dan spasi.',
+                    'username.regex' => 'The username field format is invalid. (a-z, A-Z, 0-9, ., _)',
                     // 'username.required' => 'Username wajib diisi.',
                     // 'username.unique' => 'Username sudah digunakan.',
                     // 'no_hp.required' => 'Nomor Handphone wajib diisi.',
@@ -119,14 +120,15 @@ class UserController extends Controller
             $validatedData = Validator::make($data, [
                 'name' => 'required|alpha_spaces|max:61',
                 'email' => 'required|email:dns|max:255|unique:users,email,' . $id,
-                'username' => 'nullable|string|max:255|unique:users,username,' . $id,
-                'phone_number' => 'nullable|string|max:15|unique:users,phone_number,' . $id,
+                'username' => 'nullable|string|min:6|max:31|unique:users,username,regex:/^[a-zA-Z0-9._]+$/' . $id,
+                'phone_number' => 'nullable|string|digits_between:10,15|unique:users,phone_number,' . $id,
                 'status' => 'required|in:active,inactive',
                 'is_admin' => 'required|integer|in:0,1',
                 'profile_picture' => ['sometimes', 'required', 'file', 'image', 'mimes:jpg,jpeg,png', 'mimetypes:image/jpeg,image/png', 'max:1024'],
                 // 'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:1024',
             ], [
                 'name.alpha_spaces' => 'The attribute field may only contain letters and spaces.', //'Nama hanya boleh berisi huruf dan spasi.',
+                'username.regex' => 'The username field format is invalid. (a-z, A-Z, 0-9, ., _)',
                 // 'username.required' => 'Username wajib diisi.',
                 // 'username.unique' => 'Username sudah digunakan.',
                 // 'no_hp.required' => 'Nomor Handphone wajib diisi.',
