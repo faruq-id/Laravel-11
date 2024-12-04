@@ -60,11 +60,18 @@
                         <span class="text-sm" title="{{ $post->created_at->format('d F Y H:i:s') }}">{{ $post->created_at->diffForHumans() }}</span>
                     </div>
 
-                    <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        <a href="{{ route('blog.detail', $post) }}" class="hover:underline hover:text-primary-900 dark:hover:text-blue-600">
-                            {{ $post->title }}
-                        </a>
-                    </h2>
+                    <!-- Gambar sebagai background dengan title di dalamnya -->
+                    <div class="relative mb-4 h-56 w-full bg-cover bg-center rounded-lg overflow-hidden" 
+                        style="background-image: url('{{ $post->image }}');">
+                        <!-- Overlay semi-transparan -->
+                        <div class="absolute inset-0 bg-[rgba(0,0,0,0.5)]"></div>
+                        <h2 class="absolute inset-0 flex items-center justify-center bg-black/50 text-white text-2xl font-bold px-4 text-center">
+                            <a href="{{ route('blog.detail', $post) }}" 
+                                class="hover:underline hover:text-primary-400">
+                                {{ $post->title }}
+                            </a>
+                        </h2>
+                    </div>
                     
                     <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ strip_tags(Str::limit($post->body, 100)) }}</p>
                     
