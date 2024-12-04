@@ -173,10 +173,10 @@ x-init="$watch('openSidebar', value => localStorage.setItem('openSidebar', JSON.
                             <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Profile</span>
                         </a>
                     </li>
-                    <li title="Feed">
+                    <li title="Log User">
                         <a href="#" :class="!openSidebar ? 'pl-11' : ''" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
-                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">F</span>
-                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Feed</span>
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">L</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Log User</span>
                         </a>
                     </li>
                     <li title="Settings">
@@ -197,14 +197,23 @@ x-init="$watch('openSidebar', value => localStorage.setItem('openSidebar', JSON.
                     </svg>
                 </button>
                 <ul id="dropdown-authentication" class="hidden py-2 space-y-2">
-                    <li>
-                        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sign In</a>
+                    <li title="Menus">
+                        <a href="#" :class="!openSidebar ? 'pl-11' : ''" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">M</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Menus</span>
+                        </a>
                     </li>
-                    <li>
-                        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Sign Up</a>
+                    <li title="Group Permissions">
+                        <a href="#" :class="!openSidebar ? 'pl-11' : ''" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">G</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Group Permissions</span>
+                        </a>
                     </li>
-                    <li>
-                        <a href="#" class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Forgot Password</a>
+                    <li title="User Permissions">
+                        <a href="#" :class="!openSidebar ? 'pl-11' : ''" class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                            <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">S</span>
+                            <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">User Permissions</span>
+                        </a>
                     </li>
                 </ul>
             </li>
