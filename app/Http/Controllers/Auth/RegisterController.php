@@ -27,7 +27,7 @@ class RegisterController extends Controller
 
         $validatedData = $request->validate([
                 'name' => 'required|alpha_spaces|max:61',
-                'username' => ['required', 'min:4', 'max:31', 'unique:users'],
+                'username' => ['required', 'min:6', 'max:31', 'unique:users', 'regex:/^[a-zA-Z0-9._]+$/'],
                 'phone_number' => ['required', 'digits_between:10,15', 'unique:users'], //'no_hp' => ['required', 'regex:/^08\d{8,12}$/', 'unique:users'],
                 'email' => ['required', 'email:dns', 'unique:users'],
                 'password' => ['required', 'min:6', 'max:255', 'confirmed'],
@@ -37,6 +37,7 @@ class RegisterController extends Controller
                 'terms' => 'accepted' // Validasi checkbox terms harus dicentang
             ], [
                 'name.alpha_spaces' => 'The attribute field may only contain letters and spaces.', //'Nama hanya boleh berisi huruf dan spasi.',
+                'username.regex' => 'The username field format is invalid. (a-z, A-Z, 0-9, ., _)',
                 // 'username.required' => 'Username wajib diisi.',
                 // 'username.unique' => 'Username sudah digunakan.',
                 // 'no_hp.required' => 'Nomor Handphone wajib diisi.',
@@ -46,6 +47,7 @@ class RegisterController extends Controller
                 // 'password.required' => 'Password wajib diisi.',
                 // 'password.confirmed' => 'Konfirmasi password tidak cocok.',
                 //'terms.accepted' => 'You must accept the Terms and Conditions.',
+                //'phone_number.digits_between' => 'Panjang no telepon 10-15'
             ]
         );
 
