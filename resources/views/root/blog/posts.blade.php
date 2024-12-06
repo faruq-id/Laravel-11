@@ -62,9 +62,9 @@
 
                     <!-- Gambar sebagai background dengan title di dalamnya -->
                     <div class="relative mb-4 h-56 w-full bg-cover bg-center rounded-lg overflow-hidden" 
-                        style="background-image: url('{{ $post->image }}');">
+                        style="background-image: url('{{ imagesViewBlog($post->image, null) }}');">
                         <!-- Overlay semi-transparan -->
-                        <div class="absolute inset-0 bg-[rgba(0,0,0,0.5)]"></div>
+                        <div class="absolute inset-0 bg-[rgba(0,0,0,0.2)]  dark:bg-[rgba(0,0,0,0.2)]"></div>
                         <h2 class="absolute inset-0 flex items-center justify-center bg-black/50 text-white text-2xl font-bold px-4 text-center">
                             <a href="{{ route('blog.detail', $post) }}" 
                                 class="hover:underline hover:text-primary-400">
@@ -73,7 +73,7 @@
                         </h2>
                     </div>
                     
-                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ strip_tags(Str::limit($post->body, 100)) }}</p>
+                    <p class="mb-5 font-light text-gray-500 dark:text-gray-400">{{ Str::limit(strip_tags($post->body, 100)) }}</p>
                     
                     <div class="flex justify-between items-center">
                         <div class="flex items-center space-x-3">
