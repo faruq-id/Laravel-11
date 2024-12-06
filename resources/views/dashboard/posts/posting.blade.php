@@ -167,6 +167,7 @@
                                         <th scope="col" class="px-4 py-4">Title</th>
                                         <th scope="col" class="px-4 py-3">Category</th>
                                         <th scope="col" class="px-4 py-3">Author</th>
+                                        <th scope="col" class="px-4 py-3">Images</th>
                                         <th scope="col" class="px-4 py-3">Status</th>
                                         <th scope="col" class="px-4 py-3">Tanggal</th>
                                         <th scope="col" class="px-4 py-3">
@@ -190,11 +191,14 @@
                                             </span>
                                         </td>
                                         <td class="px-6 py-4 mr-12 flex items-center space-x-3 whitespace-nowrap p-4 lg:mr-0">
-                                            <img class="h-10 w-10 rounded-full" src="img/user.jpeg" alt="{{ $post->author->name }}">
+                                            <img class="h-10 w-10 rounded-full" src="{{ imagesView($post->author->profile_picture, null) }}" alt="{{ $post->author->name }}">
                                             <div class="text-sm font-normal text-gray-500 dark:text-gray-400">
                                                 <div class="text-base font-semibold text-gray-900 dark:text-white">{{ $post->author->name }}</div>
                                                 <div class="text-sm font-normal text-gray-500 dark:text-gray-400">{{ $post->author->email }}</div>
                                             </div>
+                                        </td>
+                                        <td class="px-4 py-3">
+                                            <img class="h-10 w-10 rounded-md" src="{{ imagesViewBlog($post->image, null) }}" alt="Image Post">
                                         </td>
                                         <td class="px-4 py-3">
                                             <div class="flex items-center">
