@@ -48,7 +48,7 @@
 
                {{-- Logo dan Name --}}
                <a href="{{ route('admin.dashboard.index') }}" class="flex items-center">
-                  <img src="img/logo.png" class="mr-3 h-6 sm:h-8" alt="{{ $appName }} Logo" />
+                  <img src="/img/logo.png" class="mr-3 h-6 sm:h-8" alt="{{ $appName }} Logo" />
                   <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">{{ $appName }}</span>
                </a>
                
