@@ -29,8 +29,8 @@
         </div>
         
         <!-- Kolom Kanan -->
-        <div class="hidden z-30 lg:block lg:col-span-5">
-            <img src="/img/smt-1.png" class="scale-x-[-1]" alt="{{ $appName }}" />
+        <div class="hidden z-30 content-center lg:block lg:col-span-5">
+            <img src="/img/banner-15.png" class="scale-x-[-1]" alt="{{ $appName }}" />
             {{-- <iframe class="mx-auto mt-16 w-full lg:max-w-xl h-64 rounded-lg sm:h-96 shadow-xl" src="https://www.youtube.com/embed/KaLxCiilHns" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> --}}
         </div>
 
