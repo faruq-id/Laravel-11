@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" href="img/logo.png" type="image/x-icon" />
+    <link rel="icon" href="/img/logo.png" type="image/x-icon" />
     @vite(['resources/css/app.css', 'resources/css/customs.css'])
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <!-- Import Map -->
+    <script type="importmap">
+        {
+            "imports": {
+                "https://esm.sh/v135/prosemirror-model@1.22.3/es2022/prosemirror-model.mjs": "https://esm.sh/v135/prosemirror-model@1.19.3/es2022/prosemirror-model.mjs", 
+                "https://esm.sh/v135/prosemirror-model@1.22.1/es2022/prosemirror-model.mjs": "https://esm.sh/v135/prosemirror-model@1.19.3/es2022/prosemirror-model.mjs"
+            }
+        }
+    </script>
     <title>{{ $title }} - SIAKAD</title>
 </head>
 <body class="h-full bg-gray-50 dark:bg-gray-900 antialiased">
@@ -39,7 +48,7 @@
 
     {{-- JavaScript --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    @vite(['resources/js/app.js', 'resources/js/customs.js'])
+    @vite(['resources/js/app.js', 'resources/js/customs.js','resources/js/editor.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </body>
 </html>
