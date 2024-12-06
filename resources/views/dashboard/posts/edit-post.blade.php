@@ -57,7 +57,56 @@
             <!-- Update modal -->
             <div class="relative px-4 w-full max-h-full">
                 <!-- Modal content -->
-                <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                <div
+                    x-data="{ 
+                        files: null, 
+                        profileValid: true, 
+                        profileError: '',
+                        previewUrl: '{{ $post->image ? asset("storage/" . $post->image) : "" }}',  
+                        validatePostsPicture(event) {
+                            const maxFileSize = 1 * 1024 * 1024; // 1MB
+                            {{-- const allowedFormats = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif']; --}}
+                            const allowedFormats = ['image/jpeg', 'image/png', 'image/jpg'];
+
+                            const file = event.target.files[0];
+                            if (!file) {
+                                this.profileValid = false;
+                                this.profileError = 'Profile picture is required.';
+                                this.files = null;
+                                this.previewUrl = null; // Reset preview
+                                return;
+                            }
+
+                            if (!allowedFormats.includes(file.type)) {
+                                this.profileValid = false;
+                                {{-- this.profileError = 'Only JPG, JPEG, PNG, or GIF formats are allowed.'; --}}
+                                this.profileError = 'Only JPG, JPEG, or PNG formats are allowed.';
+                                this.files = null;
+                                this.previewUrl = null; // Reset preview
+                                return;
+                            }
+
+                            if (file.size > maxFileSize) {
+                                this.profileValid = false;
+                                this.profileError = 'File size must not exceed 1MB.';
+                                this.files = null;
+                                this.previewUrl = null; // Reset preview
+                                return;
+                            }
+
+                            this.profileValid = true;
+                            this.profileError = '';
+                            this.files = [file];
+
+                            // Generate preview URL
+                            this.previewUrl = URL.createObjectURL(file);
+                        },
+                        clearImage() {
+                            this.files = null;
+                            this.previewUrl = null;
+                        }
+                    }"
+                    class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
                     <!-- Modal header -->
                     <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $title }}</h3>
@@ -69,7 +118,7 @@
                         </a>
                     </div>
                     <!-- Modal body -->
-                    <form action="{{ route('admin.posts.update', Crypt::encrypt($post->id)) }}" method="POST">
+                    <form action="{{ route('admin.posts.update', Crypt::encrypt($post->id)) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -132,18 +181,38 @@
                                     <textarea id="metadesc" name="metadesc" rows="5" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Description">{{ $post->metadesc }}</textarea>
                                 </div>
 
-                                <div class="flex items-center justify-center w-full my-4">
-                                    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                            <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
-                                            </svg>
-                                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
-                                            <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                                        </div>
-                                        <input id="dropzone-file" type="file" name="image" class="hidden" />
+                                <div x-show="true"
+                                    class="relative flex items-center justify-center w-full my-4 h-64 border-2 bg-cover bg-center border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+                                    x-bind:style="'background-image: url(' + (previewUrl ? previewUrl : '') + '); ' + (!previewUrl ? '' : '');">
+                                    <template x-if="previewUrl">
+                                        <button 
+                                            type="button" 
+                                            x-on:click="clearImage" 
+                                            class="absolute top-2 right-2 z-10 bg-white text-red-500 text-xs px-2 py-1 rounded-full shadow-md hover:bg-red-500 hover:text-white">
+                                            ✕
+                                        </button>
+                                    </template>
+
+                                    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 text-center">
+                                        <template x-if="!previewUrl">
+                                            <div class="flex flex-col items-center justify-center">
+                                                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                                </svg>
+                                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                                                <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG or JPEG (MAX. 800x400px)</p>
+                                                <span class="text-xs text-gray-500 dark:text-gray-400">(Max Size 1MB)</span>  
+                                            </div>
+                                        </template>
+
+                                        {{-- Error Message --}}
+                                        <template x-if="!profileValid">
+                                            <p class="text-red-500 text-sm mt-4" x-text="profileError"></p>
+                                        </template>
+
+                                        <input id="dropzone-file" type="file" name="image" x-on:change="validatePostsPicture($event)" class="hidden" />
                                     </label>
-                                </div> 
+                                </div>
 
                                 <div class="sm:col-span-2 mb-3">
                                     <label for="status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Publication</label>
