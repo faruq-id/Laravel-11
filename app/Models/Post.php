@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -51,5 +52,10 @@ class Post extends Model
             $query->whereHas('author', fn($query) => $query->where('username', $author))
         );
     }
+
+    // public function getBlogsPictureAttribute(): string
+    // {
+    //     return $this->attributes['image'] && Storage::has($this->attributes['image']) ? Storage::url($this->attributes['image']) : Storage::url('/blogs/no-image.png');
+    // }
 }
 ?>
