@@ -65,7 +65,7 @@ x-init="$watch('openSidebar', value => localStorage.setItem('openSidebar', JSON.
                         :class="!openSidebar ? 'pl-11' : ''"
                         class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg
                         transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 
-                        {{ request()->routeIs('admin.posts.index') ? 'bg-gray-300 dark:bg-gray-900' : '' }}">
+                        {{ request()->routeIs('admin.posts.*') ? 'bg-gray-300 dark:bg-gray-900' : '' }}">
                             <span x-show="openSidebar" x-cloak class="flex-1 text-center whitespace-nowrap">P</span>
                             <span x-show="!openSidebar" x-cloak class="flex-1 text-left whitespace-nowrap">Post</span>
                         </a>
