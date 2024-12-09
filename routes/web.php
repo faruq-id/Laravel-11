@@ -1,21 +1,16 @@
 <?php
 
-use App\Models\Post;
-use App\Models\User;
 use App\Models\Category;
-use Illuminate\Support\Arr;
-use App\Helpers\PageTitleHelper;
-use App\Http\Controllers\Admin\PostController;
-use App\Http\Middleware\AdminAccess;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Root\BlogController;
 use App\Http\Controllers\Root\HomeController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Admin\ImageTextEditorUploadController;
 
 // ROUTE PAGES
 // Route::get('/', function () {
@@ -88,6 +83,10 @@ Route::group(['middleware' => 'isLogin', 'as' => 'admin.'], function() {
 
     Route::group(['middleware' => 'isAdmin'], function()
     {
+        // ROUT TEXT EDITOR
+        Route::post('/tinydrive/local-upload-image', [ImageTextEditorUploadController::class, 'store'])->name('local.upload.text.editor');
+        Route::post('/tinydrive/token',  [ImageTextEditorUploadController::class, 'generateTokenTinyDriveMce'])->name('upload.tinydrive');
+
         // POSTS ROUTE
         Route::get('/posts', [PostController::class, 'postIndex'])->name('posts.index');
         Route::get('/post/{id}', [PostController::class, 'postDetail'])->name('posts.detail');
@@ -108,7 +107,6 @@ Route::group(['middleware' => 'isLogin', 'as' => 'admin.'], function() {
         })->name('category.index');
     });
 });
-
 
 // // Rute untuk blog oleh author
 // Route::get('/authors/{user:username}', function (User $user) {
