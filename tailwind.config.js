@@ -37,11 +37,8 @@ export default {
     },
   },
   plugins: [
-    // require('flowbite/plugin'),
+    require('flowbite/plugin'),
     require('flowbite-typography'),
-    require('flowbite/plugin')({
-      wysiwyg: true,
-    }),
   ],
   safelist: [
     'bg-red-100',
