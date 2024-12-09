@@ -60,7 +60,7 @@ class PostController extends Controller
             // Validasi data
             $validatedData = $request->validate([
                 'title' => 'sometimes|required|string|max:255',
-                'body' => 'required|string',
+                'body' => 'required|string|max:65535',
                 'category_id' => 'nullable|exists:categories,id', // validasi kategori
                 'slug' => "required|string|unique:posts,slug,$id", // Pastikan slug unik, kecuali untuk post ini
                 'author_id' => 'required|exists:users,id', // Author harus ada di tabel users
