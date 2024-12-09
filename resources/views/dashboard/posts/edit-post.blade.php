@@ -51,12 +51,8 @@
 
 
         <div class="col-span-full">
-            
-
-
-            <!-- Update modal -->
+            {{-- Update modal --}}
             <div class="relative px-4 w-full max-h-full">
-                <!-- Modal content -->
                 <div
                     x-data="{ 
                         files: null, 
@@ -107,7 +103,7 @@
                         }
                     }"
                     class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                    <!-- Modal header -->
+                    {{-- Modal header --}}
                     <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $title }}</h3>
                         <a href="{{ route('admin.posts.index') }}" class="text-gray-400 pr-3 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -117,7 +113,6 @@
                             <span class="sr-only">Back</span>
                         </a>
                     </div>
-                    <!-- Modal body -->
                     <form action="{{ route('admin.posts.update', Crypt::encrypt($post->id)) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -129,26 +124,8 @@
                                     <input type="text" name="title" id="title" value="{{ $post->title }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Title">
                                 </div>
 
-                                @include('dashboard.posts.form-editor')
-
-                                {{-- <div>
-                                    <label for="brand" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Brand</label>
-                                    <input type="text" name="brand" id="brand" value="Google" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Ex. Apple">
-                                </div>
-                                <div>
-                                    <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                                    <input type="number" value="399" name="price" id="price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$299">
-                                </div>
-                                <div>
-                                    <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-                                    <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                                        <option selected="">Electronics</option>
-                                        <option value="TV">TV/Monitors</option>
-                                        <option value="PC">PC</option>
-                                        <option value="GA">Gaming/Console</option>
-                                        <option value="PH">Phones</option>
-                                    </select>
-                                </div> --}}
+                                {{-- TEXTAREA / TEXT EDITOR --}}
+                                <textarea id="editor" name="body" class="border border-gray-300 rounded-lg w-full p-4">{{ $post->body }}</textarea>
                             </div>
 
                             <div class="xs:grid mb-4 h-auto max-w-4xl xl:mr-4 sm:grid-cols-2">
@@ -240,12 +217,9 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 </x-dashboard-layout>
