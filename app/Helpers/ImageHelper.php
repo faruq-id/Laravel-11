@@ -10,7 +10,7 @@ if (!function_exists('imagesView')) {
         }
     
         // Gunakan default fallback jika `$noimage` tidak diisi
-        return $noimage ?: Storage::url('/users/no-image.png');
+        return $noimage ?: Storage::url('no-image.png');
     }
 }
 
@@ -23,6 +23,6 @@ if (!function_exists('imagesViewBlog')) {
         }
     
         // Gunakan default fallback jika `$noimage` tidak diisi
-        return $noimage ?: Storage::url('/blogs/no-image.png');
+        return $noimage ?: Storage::url('no-image.png');
     }
 }
