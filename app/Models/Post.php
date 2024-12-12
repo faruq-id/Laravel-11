@@ -15,7 +15,7 @@ class Post extends Model
     /** @use HasFactory<\Database\Factories\PostFactory> */
     use HasFactory, Notifiable;
 
-    protected $fillable = ['title', 'slug', 'category_id', 'keywords', 'metadesc', 'image', 'body', 'author', 'status']; // declarasi filed2 yang boleh di isi manual dari form
+    protected $fillable = ['title', 'slug', 'category_id', 'keywords', 'metadesc', 'image', 'body', 'author_id', 'status']; // declarasi filed2 yang boleh di isi manual dari form
 
     protected $with = ['author', 'category']; //eager loading untuk kebutuhan relasi (query)
 
