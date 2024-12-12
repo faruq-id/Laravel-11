@@ -100,6 +100,7 @@ const fetchLinkList = () => [
         // toolbar_persist: false, untuk tag DIV
         // fixed_toolbar_container: '#mytoolbar',
         toolbar_drawer: 'sliding',
+        toolbar: true,
         // toolbar: 'code | undo redo | styles | blocks fontfamily fontsize align lineheight | forecolor backcolor | copy cut paste pasteText selectAll | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
         // toolbar: 'undo redo | styles | bold italic | alignleft aligncenter alignright alignjustify | outdent indent',
         // toolbar: 'code | undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile quickimage image media template link checklist anchor codesample | typography ltr rtl',
@@ -154,34 +155,137 @@ const fetchLinkList = () => [
         image_title: true,
         file_picker_types: 'file image media', //'file image media'
         /* and here's our custom image picker*/
+        // file_picker_callback: (cb, value, meta) => {
+        //     const input = document.createElement('input');
+        //     input.setAttribute('type', 'file');
+        //     input.setAttribute('accept', 'image/*');
+
+        //     input.addEventListener('change', (e) => {
+        //     const file = e.target.files[0];
+
+        //     const reader = new FileReader();
+        //     reader.addEventListener('load', () => {
+        //         /*
+        //         Note: Now we need to register the blob in TinyMCEs image blob
+        //         registry. In the next release this part hopefully won't be
+        //         necessary, as we are looking to handle it internally.
+        //         */
+        //         const id = 'blobid' + (new Date()).getTime();
+        //         const blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+        //         const base64 = reader.result.split(',')[1];
+        //         const blobInfo = blobCache.create(id, file, base64);
+        //         blobCache.add(blobInfo);
+
+        //         /* call the callback and populate the Title field with the file name */
+        //         cb(blobInfo.blobUri(), { title: file.name });
+        //     });
+        //     reader.readAsDataURL(file);
+        //     });
+
+        //     input.click();
+        // },
         file_picker_callback: (cb, value, meta) => {
-            const input = document.createElement('input');
-            input.setAttribute('type', 'file');
-            input.setAttribute('accept', 'image/*');
+            if (meta.filetype === 'image') {
+                // Buat dialog pilihan antara perangkat atau server
+                tinymce.activeEditor.windowManager.open({
+                    title: 'Select Image Source',
+                    body: {
+                        type: 'panel',
+                        items: [
+                            {
+                                type: 'button',
+                                text: 'Upload from Device',
+                                name: 'device',
+                            },
+                            {
+                                type: 'button',
+                                text: 'Choose from Server',
+                                name: 'server',
+                            },
+                        ],
+                    },
+                    buttons: [
+                        {
+                            type: 'cancel',
+                            text: 'Cancel',
+                        },
+                    ],
+                    onAction: (dialogApi, details) => {
+                        if (details.name === 'device') {
+                            // Logika untuk memilih dari perangkat
+                            const input = document.createElement('input');
+                            input.setAttribute('type', 'file');
+                            input.setAttribute('accept', 'image/*');
+                            input.addEventListener('change', (e) => {
+                                const file = e.target.files[0];
+                                const reader = new FileReader();
+                                reader.addEventListener('load', () => {
+                                    const id = 'blobid' + new Date().getTime();
+                                    const blobCache = tinymce.activeEditor.editorUpload.blobCache;
+                                    const base64 = reader.result.split(',')[1];
+                                    const blobInfo = blobCache.create(id, file, base64);
+                                    blobCache.add(blobInfo);
+                                    cb(blobInfo.blobUri(), { title: file.name });
+                                    dialogApi.close();
+                                });
+                                reader.readAsDataURL(file);
+                            });
+                            input.click();
+                        } else if (details.name === 'server') {
+                            // Logika untuk memilih dari server
+                            fetch('/files')
+                                .then((response) => response.json())
+                                .then((files) => {
+                                    let htmlContent = files
+                                        .map((file) => {
+                                            return `
+                                            <div title="Select Image: ${file.title}" onclick="window.dialogCallback('${file.value}', '${file.title}')" title="${file.title}" class="p-2 flex flex-col justify-end !text-center items-center bg-gray-900 !rounded-md !hover:cursor-pointer; min-h-[150px] w-[150px]" style="border:2px solid #ccc; cursor:pointer; background-image: url('${file.value}'); background-size: cover;">
+                                                <!--<img src="${file.value}" alt="${file.title}" 
+                                                    class="max-w-[120px] max-h-[120px] w-auto h-auto object-cover rounded-md shadow-md cursor-pointer hover:shadow-lg transition-shadow"
+                                                    onclick="selectImage('${file.value}', '${file.title}')">-->
+                                                <div class="mt-4 rounded-bl-md rounded-br-md text-center !text-xs !text-gray-400 break-words !bg-gray-800 dark:bg-gray-800">${file.title}</div>
+                                            </div>`;
+                                        })
+                                        .join('');
 
-            input.addEventListener('change', (e) => {
-            const file = e.target.files[0];
+                                    // Dialog untuk memilih gambar dari server
+                                    const serverDialog = tinymce.activeEditor.windowManager.open({
+                                        title: 'Select an image',
+                                        size: 'large', // Memperbesar dialog
+                                        body: {
+                                            type: 'panel',
+                                            items: [
+                                                {
+                                                    type: 'htmlpanel',
+                                                    html: `<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">${htmlContent}</div>`,
+                                                },
+                                            ],
+                                        },
+                                        buttons: [
+                                            {
+                                                text: 'Cancel',
+                                                type: 'cancel',
+                                            },
+                                        ],
+                                    });
+    
+                                    // window.selectImage = function (imageUrl, title) {
+                                    //     cb(imageUrl, { title });
+                                    //     dialogApi.close();
+                                    // };
 
-            const reader = new FileReader();
-            reader.addEventListener('load', () => {
-                /*
-                Note: Now we need to register the blob in TinyMCEs image blob
-                registry. In the next release this part hopefully won't be
-                necessary, as we are looking to handle it internally.
-                */
-                const id = 'blobid' + (new Date()).getTime();
-                const blobCache =  tinymce.activeEditor.editorUpload.blobCache;
-                const base64 = reader.result.split(',')[1];
-                const blobInfo = blobCache.create(id, file, base64);
-                blobCache.add(blobInfo);
-
-                /* call the callback and populate the Title field with the file name */
-                cb(blobInfo.blobUri(), { title: file.name });
-            });
-            reader.readAsDataURL(file);
-            });
-
-            input.click();
+                                    // Callback untuk menangani klik pada gambar
+                                    window.dialogCallback = (imageUrl, title) => {
+                                        cb(imageUrl, { title });
+                                        serverDialog.close(); // Tutup dialog setelah memilih
+                                        delete window.dialogCallback; // Bersihkan fungsi global
+                                        dialogApi.close();
+                                    };
+                                });
+                        }
+                    },
+                });
+            }
         },
         image_caption: true,
         image_description: true,
@@ -236,8 +340,19 @@ const fetchLinkList = () => [
         contextmenu_avoid_overlap: '.mce-spelling-word',
         // content_style: '.mce-annotation { background: #fff0b7; } .tc-active-annotation {background: #ffe168; color: black; }',
         typeahead_urls: true,
+        // MENUBAR
         menubar: true,
         // menubar: 'file edit view insert format tools table help',
+        menu: {
+            file: { title: 'File', items: 'newdocument restoredraft | preview | importword exportpdf exportword | print | deleteallconversations' },
+            edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall | searchreplace' },
+            view: { title: 'View', items: 'code revisionhistory | visualaid visualchars visualblocks | spellchecker | preview fullscreen | showcomments' },
+            insert: { title: 'Insert', items: 'image link media addcomment pageembed codesample inserttable | math | charmap emoticons hr accordion | pagebreak nonbreaking anchor tableofcontents | insertdatetime footnotes footnotesupdate' },
+            format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat permanentpen configurepermanentpen | styles casechange blocks fontfamily fontsize align lineheight | forecolor backcolor | language | removeformat' },
+            tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage spellcheckdialog | a11ycheck code wordcount' },
+            table: { title: 'Table', items: 'inserttable | cell row column | advtablesort | advtablerownumbering tableprops deletetable' },
+            help: { title: 'Help', items: 'help' }
+        },
         details_initial_state: 'expanded', //(accordion) inherited, collapsed, expanded
         details_serialized_state: 'collapsed', //(accordion)
         fullscreen_native: true, //(fullscreen)
@@ -431,18 +546,9 @@ const fetchLinkList = () => [
         //     { title: 'None', value: 'none' },
         //     { title: 'Hidden', value: 'hidden' }
         // ],
-        menu: {
-            file: { title: 'File', items: 'newdocument restoredraft | preview | importword exportpdf exportword | print | deleteallconversations' },
-            edit: { title: 'Edit', items: 'undo redo | cut copy paste pastetext | selectall | searchreplace' },
-            view: { title: 'View', items: 'code revisionhistory | visualaid visualchars visualblocks | spellchecker | preview fullscreen | showcomments' },
-            insert: { title: 'Insert', items: 'image link media addcomment pageembed codesample inserttable | math | charmap emoticons hr accordion | pagebreak nonbreaking anchor tableofcontents | insertdatetime footnotes footnotesupdate' },
-            format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat permanentpen configurepermanentpen | styles casechange blocks fontfamily fontsize align lineheight | forecolor backcolor | language | removeformat' },
-            tools: { title: 'Tools', items: 'spellchecker spellcheckerlanguage spellcheckdialog | a11ycheck code wordcount' },
-            table: { title: 'Table', items: 'inserttable | cell row column | advtablesort | advtablerownumbering tableprops deletetable' },
-            help: { title: 'Help', items: 'help' }
-        },
         setup: (editor) => {
             editor.on('init', () => {
+                editor.getContainer().querySelector('.tox-editor-container').setAttribute('data-placeholder', 'Enter your text here....');
                 // Tambahkan kelas pada container untuk menyesuaikan UI Tailwind
                 editor.getContainer().classList.add(
                     'bg-gray-50',
