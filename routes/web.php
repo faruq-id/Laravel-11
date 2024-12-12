@@ -2,6 +2,7 @@
 
 use App\Models\Category;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Root\BlogController;
 use App\Http\Controllers\Root\HomeController;
 use App\Http\Controllers\Admin\PostController;
@@ -86,11 +87,31 @@ Route::group(['middleware' => 'isLogin', 'as' => 'admin.'], function() {
         // ROUT TEXT EDITOR
         Route::post('/tinydrive/local-upload-image', [ImageTextEditorUploadController::class, 'store'])->name('local.upload.text.editor');
         Route::post('/tinydrive/token',  [ImageTextEditorUploadController::class, 'generateTokenTinyDriveMce'])->name('upload.tinydrive');
+        Route::get('/files', function () {
+            $directory = 'uploads/images/editor';
+            $files = Storage::disk('public')->files($directory);
+
+            if (empty($files)) {
+                return response()->json(['error' => 'No files found'], 404);
+            }
+
+            $fileList = array_map(function ($file) {
+                return [
+                    'title' => basename($file), // Nama file
+                    'value' => asset(Storage::url($file)), // URL lengkap
+                ];
+            }, $files);
+
+            return response()->json($fileList);
+        });
 
         // POSTS ROUTE
-        Route::get('/posts', [PostController::class, 'postIndex'])->name('posts.index');
-        Route::get('/post/{id}', [PostController::class, 'postDetail'])->name('posts.detail');
+        Route::get('/post', [PostController::class, 'postIndex'])->name('posts.index');
+        Route::get('/post/create', [PostController::class, 'postShowFormAdd'])->name('posts.add');
+        Route::post('/post/store', [PostController::class, 'store'])->name('posts.store');
+        Route::get('/post/{id}', [PostController::class, 'postShowFormEdit'])->name('posts.edit');
         Route::put('/post/{post}', [PostController::class, 'update'])->name('posts.update');
+        // Route::delete('/post/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
         // USERS ROUTE
         Route::group(['prefix' => 'users'], function() {
